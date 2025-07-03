@@ -1,7 +1,9 @@
 {
-  "welcome_message": "Benvenuto nel mio sito!",
+  "welcome_message": "Benvenuto nel mio sito!\nSono Davide Battipaglia",
   "dark_mode": "Passa alla modalità scura",
   "light_mode": "Passa alla modalità chiara",
   "home": "Home",
-  "about": "Informazioni"
+  "about": "Informazioni",
+  "not_found_message": "Ops! La pagina che stai cercando non esiste.",
+  "go_home": "Torna alla home"
 }

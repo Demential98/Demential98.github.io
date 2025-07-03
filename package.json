@@ -7,9 +7,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build_old": "vite build && cp dist/index.html dist/404.html",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "vite build && gh-pages -d dist -b gh-pages"
+    "deploy": "vite build && cp dist/index.html dist/404.html && gh-pages -d dist -b gh-pages"
   },
   "dependencies": {
     "framer-motion": "^12.23.0",
@@ -18,7 +19,8 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-i18next": "^15.5.3",
-    "react-router-dom": "^7.6.3"
+    "react-router-dom": "^7.6.3",
+    "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",

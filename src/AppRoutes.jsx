@@ -7,6 +7,9 @@ import About from './pages/About';
 import NotFound from './pages/NotFound';
 import PageWrapper from './components/PageWrapper';
 
+
+import Test from './pages/Test';
+
 export default function AppRoutes() {
   const location = useLocation();
 
@@ -15,6 +18,7 @@ export default function AppRoutes() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
         <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
+        <Route path="/test" element={<PageWrapper><Test /></PageWrapper>} />
         <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
       </Routes>
     </AnimatePresence>
