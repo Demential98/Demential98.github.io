@@ -5,10 +5,16 @@
 :root {
   --bg-color: white;
   --text-color: black;
+
+  --button-bg: #42A5F5; /* blue-400 */
+  --button-bg-hover: #2563eb; /* blue-600 */
 }
 [data-theme='dark'] {
   --bg-color: #111;
   --text-color: white;
+
+  --button-bg: #2563eb; /* blue-600 */
+  --button-bg-hover: #1d4ed8; /* blue-700 */
 }
 
 /*:root {

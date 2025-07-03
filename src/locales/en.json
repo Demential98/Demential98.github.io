@@ -3,5 +3,7 @@
   "dark_mode": "Switch to Dark Mode",
   "light_mode": "Switch to Light Mode",
   "home": "Home",
-  "about": "About"
+  "about": "About",
+  "not_found_message": "Oops! The page you're looking for doesn't exist.",
+  "go_home": "Go back home"
 }
