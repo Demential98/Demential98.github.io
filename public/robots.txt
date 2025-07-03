@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://demential98.github.io/sitemap.xml
