@@ -99,8 +99,9 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] transition-colors">
-        <nav className={`sticky top-0 z-50 flex justify-between items-center px-4 py-3 border-b transition-shadow bg-[var(--bg-color)] ${scrolled ? 'shadow-md' : ''}`}>
+        <div className="flex flex-col h-screen bg-[var(--bg-color)] text-[var(--text-color)] transition-colors">
+          {/* NAVBAR */}
+          <nav className={`sticky top-0 z-50 flex justify-between items-center px-4 py-3 border-b transition-shadow bg-[var(--bg-color)] ${scrolled ? 'shadow-md' : ''}`}>
           <div className="flex gap-4">
             <Link to="/" className="underline">{t('home')}</Link>
             <Link to="/about" className="underline">{t('about')}</Link>
@@ -163,9 +164,9 @@ function App() {
           </div>
         </nav>
 
-        <main className="p-6">
-          <AppRoutes />
-        </main>
+           <main className="flex-1 h-full min-h-0 overflow-hidden">
+            <AppRoutes />
+          </main>
       </div>
     </BrowserRouter>
   );
