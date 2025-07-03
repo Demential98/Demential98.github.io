@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
-import Home from './pages/Home';
-import About from './pages/About';
+import AppRoutes from './AppRoutes';
+
+import { SunMoon,Sun, Moon, Globe } from 'lucide-react';
 
 
-import { Sun, Moon, Globe } from 'lucide-react';
+
 
 
 const languageOptions = [
@@ -28,6 +29,9 @@ function App() {
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+
+
 
 
   // 🌗 Theme handling
@@ -59,11 +63,16 @@ function App() {
   }, [themeMode]);
   
   const toggleTheme = () => {
-    const newMode = themeMode === 'light' ? 'dark'
-                    : themeMode === 'dark' ? 'auto'
-                    : 'light';
-    setThemeMode(newMode);
-    localStorage.setItem('theme-mode', newMode);
+    console.log(themeMode)
+    setThemeMode(prev => {
+      const newMode =
+        prev === 'light' ? 'dark' :
+        prev === 'dark' ? 'auto' :
+        'light';
+
+      localStorage.setItem('theme-mode', newMode);
+      return newMode;
+    });
   };
 
 
@@ -83,7 +92,7 @@ function App() {
     l.label.toLowerCase().includes(langSearch.toLowerCase())
   );
 
-  
+
   
 
   
@@ -146,19 +155,16 @@ function App() {
               {themeMode === 'light' && <Sun className="w-5 h-5 text-yellow-600" />}
               {themeMode === 'dark' && <Moon className="w-5 h-5 text-white" />}
               {themeMode === 'auto' && (
-                getEffectiveTheme() === 'dark'
-                  ? <Moon className="w-5 h-5 text-gray-300" />
-                  : <Sun className="w-5 h-5 text-yellow-400" />
+                <SunMoon
+                  className={`w-5 h-5 ${theme === 'dark' ? 'text-gray-300' : 'text-yellow-400'}`}
+                />
               )}
             </button>
           </div>
         </nav>
 
         <main className="p-6">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-          </Routes>
+          <AppRoutes />
         </main>
       </div>
     </BrowserRouter>
