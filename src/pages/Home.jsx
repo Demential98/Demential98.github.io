@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+
 export default function Home() {
   const { t } = useTranslation();
 
@@ -8,13 +9,27 @@ export default function Home() {
         {t('welcome_message')}
       </h1>
 
-      {/* giant name at the real bottom of the viewport */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center overflow-hidden">
+      {/* big username at the very bottom */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center overflow-visible">
         <div
-          className="hidden sm:block text-transparent select-none bg-clip-text font-black leading-none
-                     bg-gradient-to-b from-neutral-500/10 to-neutral-500/0
-                     text-[10rem] lg:text-[16rem]"
-          style={{ marginBottom: '-2.5rem' }}
+          className="
+            font-black leading-none whitespace-nowrap select-none text-center w-full
+
+            /* —— phones & tablets —— */
+            text-[clamp(3rem,18vw,9rem)]    /* never wider than viewport */
+
+            /* —— laptops / desktops —— */
+            sm:text-[clamp(6rem,15vw,16rem)]
+
+            /* solid colour on the tiniest screens */
+            text-neutral-700
+            /* gradient on ≥ sm */
+            sm:text-transparent sm:bg-clip-text
+            sm:bg-gradient-to-b sm:from-neutral-500/25 sm:to-neutral-500/0
+
+            /* pull down only when it’s big enough to look good */
+            sm:mb-[-2.5rem]
+          "
         >
           Demential
         </div>
