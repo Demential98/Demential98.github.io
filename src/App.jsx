@@ -99,7 +99,7 @@ function App() {
 
   return (
     <BrowserRouter>
-        <div className="flex flex-col min-h-screen bg-[var(--bg-color)] text-[var(--text-color)] transition-colors">
+        <div className="flex flex-col h-screen bg-[var(--bg-color)] text-[var(--text-color)] transition-colors">
           {/* NAVBAR */}
           <nav className={`sticky top-0 z-50 flex justify-between items-center px-4 py-3 border-b transition-shadow bg-[var(--bg-color)] ${scrolled ? 'shadow-md' : ''}`}>
           <div className="flex gap-4">
@@ -164,7 +164,7 @@ function App() {
           </div>
         </nav>
 
-          <main className="flex-1 min-h-0">
+           <main className="flex-1 h-full min-h-0 overflow-hidden">
             <AppRoutes />
           </main>
       </div>
