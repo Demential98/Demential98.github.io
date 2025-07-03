@@ -24,3 +24,17 @@ export default function AppRoutes() {
     </AnimatePresence>
   );
 }
+
+
+//   return (
+//     <>
+//       <section className="h-screen snap-start">
+//         <Home />
+//       </section>
+//       <section className="h-screen snap-start">
+//         <About />
+//       </section>
+//       {/* Add more full-page sections here */}
+//     </>
+//   );
+// }
