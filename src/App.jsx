@@ -105,6 +105,7 @@ function App() {
           <div className="flex gap-4">
             <Link to="/" className="underline">{t('home')}</Link>
             <Link to="/about" className="underline">{t('about')}</Link>
+            <Link to="/experience" className="underline">{t('experience')}</Link>
           </div>
 
           <div className="relative flex items-center gap-2">

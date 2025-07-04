@@ -13,6 +13,8 @@
     "deploy": "vite build && cp dist/index.html dist/404.html && gh-pages -d dist -b gh-pages"
   },
   "dependencies": {
+    "d3-array": "^3.2.4",
+    "d3-scale": "^4.0.2",
     "framer-motion": "^12.23.0",
     "i18next": "^25.3.0",
     "lucide-react": "^0.525.0",

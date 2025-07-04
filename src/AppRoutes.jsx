@@ -5,6 +5,7 @@ import { AnimatePresence } from 'framer-motion';
 import Home from './pages/Home';
 import About from './pages/About';
 import NotFound from './pages/NotFound';
+import ExperienceGraph from './pages/ExperienceGraph';
 import PageWrapper from './components/PageWrapper';
 
 
@@ -18,6 +19,8 @@ export default function AppRoutes() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
         <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
+        <Route path="/experience" element={<PageWrapper><ExperienceGraph /></PageWrapper>} />
+
         <Route path="/test" element={<PageWrapper><Test /></PageWrapper>} />
         <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
       </Routes>

@@ -5,5 +5,7 @@
   "home": "Home",
   "about": "About",
   "not_found_message": "Oops! The page you're looking for doesn't exist.",
-  "go_home": "Go back home"
+  "go_home": "Go back home",
+  "experience":"Experience"
+
 }
