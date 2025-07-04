@@ -1,121 +1,134 @@
-import { useMemo } from 'react';
+import { useMemo, useRef, useEffect, useState } from 'react';
+import Tree from 'react-d3-tree';
 import data from '../data/experience.json';
+import { toTree } from '../utils/toTree';
+import ResizeObserver from 'resize-observer-polyfill'; // 2 KB; vite treeshakes
 
-export default function ExperienceGraph() {
 
-    const skillColors = data.skillColors || {};
-
-  /* 1.  flatten + sort */
-  const nodes = useMemo(() => {
-    const flat = [];
-    data.tracks.forEach(t => t.items.forEach(i => flat.push({ ...i, color: t.color })));
-    flat.sort((a, b) => new Date(b.start) - new Date(a.start));
-    return flat;
+export default function ExperienceTree() {
+  /* flatten + sort most-recent first */
+  const flat = useMemo(() => {
+    const all = [];
+    data.tracks.forEach(t =>
+      t.items.forEach(i => all.push({ ...i, color: t.color }))
+    );
+    return all.sort((a, b) => new Date(b.start) - new Date(a.start));
   }, []);
 
-  /* 2.  compute layout (row / lane) */
-  const centerX = 450, laneGap = 120, rowGap = 120;
-  const idMap = new Map();
-  nodes.forEach((n, idx) => idMap.set(n.id, n));
+  /* convert to nested shape */
+  const root = useMemo(() => toTree(flat), [flat]);
 
-  nodes.forEach((n, idx) => {
-    n.row = idx;
-    if (!n.parent) {
-      n.lane = 0;
-    } else {
-      const p = idMap.get(n.parent);
-      const dir = p.lastDir === 'right' ? -1 : 1;
-      p.lastDir = dir === 1 ? 'right' : 'left';
-      n.lane = p.lane + dir;
-    }
-    n.x = centerX + n.lane * laneGap;
-    n.y = idx * rowGap + 60;
-  });
+  /* centre tree on mount */
+  const containerRef = useRef(null);
+  const [translate, setTranslate] = useState({ x: 0, y: 80 });
+  
+  // useEffect(() => {
+    // const rect = containerRef.current?.getBoundingClientRect();
+    // if (rect) setTranslate({ x: rect.width / 2, y: 80 });
+  // }, []);
 
-  /* svg size */
-  const height = nodes.length * rowGap + 100;
-  const width  = centerX * 2;
 
-  /* util */
-  const format = d =>
-    new Date(d).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
+//   useEffect(() => {
+//   const handle = () => {
+//     const rect = containerRef.current?.getBoundingClientRect();
+//     if (rect) setTranslate({ x: rect.width / 2, y: 80 });
+//   };
+//   window.addEventListener('resize', handle);
+//   return () => window.removeEventListener('resize', handle);
+// }, []);
+
+  useEffect(() => {
+  if (!containerRef.current) return;
+
+  const update = () => {
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (rect) setTranslate({ x: rect.width / 2, y: 80 });
+  };
+
+  update();                               // 1) initial centre
+  const ro = new ResizeObserver(update);  // 2) future resizes
+  ro.observe(containerRef.current);
+
+  return () => ro.disconnect();           // cleanup
+}, []);
+  
+
+  /* card renderer */
+  const renderNode = ({ nodeDatum }) => (
+    <>
+      {/* dot */}
+      <circle r={6} fill={nodeDatum.color || '#2563eb'} />
+      {/* floating card */}
+      <foreignObject
+        x={10}
+        y={-30}
+        width={240}
+        height={80}
+        className="pointer-events-auto"
+      >
+        <div
+          className={`
+            backdrop-blur-sm bg-white/70 dark:bg-slate-900/70
+            border border-slate-300 dark:border-slate-700
+            rounded-lg p-2 shadow-md
+            w-56
+          `}
+        >
+          <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+            {nodeDatum.title}
+          </p>
+          <p className="text-xs text-slate-600 dark:text-slate-400">
+            {nodeDatum.org ?? nodeDatum.track}
+          </p>
+          <p className="text-[10px] italic text-slate-500">
+            {format(nodeDatum.start)} –{' '}
+            {nodeDatum.end ? format(nodeDatum.end) : 'now'}
+          </p>
+          {/* skill chips */}
+          <div className="mt-1 flex flex-wrap gap-1">
+            {(nodeDatum.skills || []).map(sk => (
+              <span
+                key={sk}
+                className="px-1.5 py-0.5 rounded text-[10px] font-medium"
+                style={{
+                  backgroundColor: (data.skillColors || {})[sk] ?? '#ccc',
+                  color: '#fff'
+                }}
+              >
+                {sk}
+              </span>
+            ))}
+          </div>
+        </div>
+      </foreignObject>
+    </>
+  );
 
   return (
-    <div className="w-full overflow-x-auto">
-
-      <svg className="max-w-none" viewBox={`0 0 ${width} ${height}`}>
-        <defs>
-          <linearGradient id="grad" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="#fff" stopOpacity="0"/>
-            <stop offset="100%" stopColor="#fff" stopOpacity="0.15"/>
-          </linearGradient>
-        </defs>
-        {/* central spine */}
-        <line
-          x1={centerX}
-          y1={nodes[0].y - rowGap}
-          x2={centerX}
-          y2={nodes[nodes.length - 1].y + 40}
-          stroke="#e5e7eb"
-          strokeWidth="4"
+    // <div ref={containerRef} className="w-full h-[80vh]">
+    <div
+        ref={containerRef}
+        className="w-full h-[80vh] flex justify-center overflow-y-auto"
+    >
+      {translate.x !== 0 && (
+        <Tree
+          data={root}
+          translate={translate}
+          orientation="vertical"
+          pathFunc="step"           /* ← the Git-style elbow */
+          separation={{ siblings: 1, nonSiblings: 2 }}
+          nodeSize={{ x: 300, y: 140 }}
+          renderCustomNodeElement={renderNode}
+          collapsible={false}       /* always expanded */
+          zoomable={false}      /* ⬅︎ no wheel-zoom, no drag-pan */
+          panOnDrag={false}     /* ⬅︎ newer prop in react-d3-tree ≥3.4 */
+          enableLegacyTransitions={false}  /* snappier scroll performance */
         />
-
-        {/* connectors (parent → child) */}
-        {nodes.map(n => {
-          if (!n.parent) return null;
-          const p = idMap.get(n.parent);
-          const pathD = `
-                M ${p.x} ${p.y}
-                Q ${p.x} ${(p.y + n.y) / 2} ${centerX} ${(p.y + n.y) / 2}
-                T ${n.x} ${n.y}
-            `;
-          return (
-            <path
-                key={n.id + '-link'}
-                d={pathD}
-                fill="none"
-                stroke={n.color}
-                strokeWidth="3"
-            />
-          );
-        })}
-
-        {/* nodes */}
-        {nodes.map(n => (
-          <g key={n.id}>
-            <circle cx={n.x} cy={n.y} r="10" fill={n.color} />
-            <text
-              x={n.x + (n.lane >= 0 ? 16 : -16)}
-              y={n.y + 4}
-              textAnchor={n.lane >= 0 ? 'start' : 'end'}
-              className="text-sm font-medium fill-slate-900 dark:fill-slate-100"
-            >
-              {n.title}
-            </text>
-            <text
-              x={n.x + (n.lane >= 0 ? 16 : -16)}
-              y={n.y + 20}
-              textAnchor={n.lane >= 0 ? 'start' : 'end'}
-              className="text-xs fill-slate-500"
-            >
-              {format(n.start)} – {n.end ? format(n.end) : 'now'}
-            </text>
-            {/* skill petals */}
-            {n.skills?.map((sk, idx) => (
-              <circle
-                key={sk}
-                cx={n.x + 18 * Math.cos((idx / n.skills.length) * 2 * Math.PI)}
-                cy={n.y + 18 * Math.sin((idx / n.skills.length) * 2 * Math.PI)}
-                r="5"
-                fill={skillColors[sk] || '#a3a3a3'}
-              >
-                {/* tooltip */}
-                <title>{sk}</title>
-              </circle>
-            ))}
-          </g>
-        ))}
-      </svg>
+      )}
     </div>
   );
+}
+
+function format(d) {
+  return new Date(d).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
 }
