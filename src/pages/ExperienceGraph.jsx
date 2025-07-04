@@ -154,6 +154,8 @@ export default function ExperienceTreeAnimated() {
           panOnDrag
           enableLegacyTransitions
           zoomable
+          zoom={3}
+          scaleExtent={{min:1,max:3}}
         />
       )}
     </div>
