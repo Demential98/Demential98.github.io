@@ -8,11 +8,11 @@ export default defineConfig({
   plugins: [
     react(),
     ],
-    build: {
-      rollupOptions: {
-        input: {
-          main: resolve(__dirname, 'index.html'),
-        },
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
       },
     },
-  });
+  },
+});
