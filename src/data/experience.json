@@ -1,71 +1,58 @@
 {
   "tracks": [
     {
-      "id": "work",
-      "label": "Work",
-      "color": "#2563eb",            
+      "id": "experience",
+      "label": "Experience",
+      "color": "#2563eb",
+
       "items": [
         {
-          "id": "acme-dev",
-          "title": "Full-stack Developer",
-          "org": "ACME Corp",
-          "start": "2023-06-01",      
-          "end": "2025-02-01",
-          "skills": ["TypeScript", "React", "Docker"],
-          "links": ["https://acme.dev"],
-          "description": "Built the internal coupon rendering engine..."
-        },
-        {
-          "id": "acme-lead",
-          "title": "Tech Lead",
-          "org": "ACME Corp",
+          "id": "work-main",
+          "parent": null,
+          "title": "Tech Lead — ACME",
           "start": "2025-02-01",
-          "end": null,                
+          "end": null,
+
           "skills": ["Go", "Redis", "Kubernetes"],
-          "parent": "acme-dev"        
-        }
-      ]
-    },
+          "projects": [
+            {
+              "id": "render-engine",
+              "name": "Coupon Rendering Engine",
+              "url": "https://github.com/Demential98/render-engine"
+            }
+          ],
+          "summary": "Leading the team building scalable render pipelines."
+        },
 
-    {
-      "id": "education",
-      "label": "Education",
-      "color": "#059669",            
-      "items": [
         {
-          "id": "uni",
-          "title": "B.Sc. Computer Science",
-          "org": "Uni of Pisa",
-          "start": "2018-10-01",
-          "end": "2022-03-01",
-          "skills": ["Java", "C++", "Algorithms"]
-        }
-      ]
-    },
+          "id": "oss-rs",
+          "parent": "work-main",
+          "title": "Rust OSS Contributor",
+          "start": "2025-06-01",
+          "end": "2025-11-01",
+          "skills": ["Rust", "WASM"],
+          "summary": "Extended XYZ crate for WebAssembly."
+        },
 
-    {
-      "id": "projects",
-      "label": "Personal Projects",
-      "color": "#d97706",            
-      "items": [
         {
-          "id": "flyer-scraper",
-          "title": "Flyer Scraper CLI",
-          "org": null,
-          "start": "2024-01-01",
-          "end": "2024-06-15",
-          "skills": ["Python", "OpenCV", "YOLOv8"],
-          "links": ["https://github.com/Demential98/flyer-scraper"]
+          "id": "work-dev",
+          "title": "Full-stack Dev — ACME",
+          "start": "2023-06-01",
+          "end": "2025-02-01",
+          "skills": ["TypeScript", "React", "Docker"]
         }
       ]
     }
   ],
 
-  "skills": {
-    "React":   "#38bdf8",
+  "skillColors": {
+    "Go":         "#00ADD8",
+    "Rust":       "#dea584",
+    "Redis":      "#d82c20",
+    "Docker":     "#2396ed",
     "TypeScript": "#3178c6",
-    "Docker":  "#0db7ed",
-    "Python":  "#3776ab",
-    "...":     "#888888"
+    "Kubernetes": "#326ce5",
+    "React":      "#61dafb",
+    "WASM":       "#654ff0"
   }
 }

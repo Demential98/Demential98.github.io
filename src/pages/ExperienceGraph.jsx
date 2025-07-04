@@ -1,113 +1,121 @@
 import { useMemo } from 'react';
-
-import data from '../data/experience.json';   // Vite alias “@/”
-
-
-
-/* config */
-const MAIN_X = 140;          // px – x-pos of the vertical backbone
-const MIN_BAR = 40;          // px – shortest visible duration bar
-const BAR_X_OFFSET = 40;     // px – how far a bar sticks out from backbone
+import data from '../data/experience.json';
 
 export default function ExperienceGraph() {
-  /* flatten & sort items by start date DESC (recent first) */
+
+    const skillColors = data.skillColors || {};
+
+  /* 1.  flatten + sort */
   const nodes = useMemo(() => {
     const flat = [];
-    data.tracks.forEach(track =>
-      track.items.forEach(it =>
-        flat.push({ ...it, color: track.color, track: track.id })
-      )
-    );
-
-    flat.sort(
-      (a, b) => new Date(b.start).valueOf() - new Date(a.start).valueOf()
-    );
+    data.tracks.forEach(t => t.items.forEach(i => flat.push({ ...i, color: t.color })));
+    flat.sort((a, b) => new Date(b.start) - new Date(a.start));
     return flat;
   }, []);
 
-  /* Y-scale : 0 → … based on order (simpler than date scale) */
-  const nodeGap = 110;
-  const height = nodes.length * nodeGap + 100;
-  const yOf = idx => idx * nodeGap + 60;
+  /* 2.  compute layout (row / lane) */
+  const centerX = 450, laneGap = 120, rowGap = 120;
+  const idMap = new Map();
+  nodes.forEach((n, idx) => idMap.set(n.id, n));
 
-  /* helper: date diff in days → bar length px */
-  const barLength = (start, end) => {
-    const ms = (end ?? new Date()) - new Date(start);
-    const days = ms / 86_400_000;
-    return Math.max(MIN_BAR, days / 365 * 80); // 80 px ≈ 1 year
-  };
+  nodes.forEach((n, idx) => {
+    n.row = idx;
+    if (!n.parent) {
+      n.lane = 0;
+    } else {
+      const p = idMap.get(n.parent);
+      const dir = p.lastDir === 'right' ? -1 : 1;
+      p.lastDir = dir === 1 ? 'right' : 'left';
+      n.lane = p.lane + dir;
+    }
+    n.x = centerX + n.lane * laneGap;
+    n.y = idx * rowGap + 60;
+  });
+
+  /* svg size */
+  const height = nodes.length * rowGap + 100;
+  const width  = centerX * 2;
+
+  /* util */
+  const format = d =>
+    new Date(d).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
 
   return (
     <div className="w-full overflow-x-auto">
-      <svg
-        viewBox={`0 0 900 ${height}`}
-        className="w-[900px] max-w-none"
-        aria-label="Experience timeline"
-      >
-        {/* ─── backbone ─────────────────────────────────────── */}
+
+      <svg className="max-w-none" viewBox={`0 0 ${width} ${height}`}>
+        <defs>
+          <linearGradient id="grad" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor="#fff" stopOpacity="0"/>
+            <stop offset="100%" stopColor="#fff" stopOpacity="0.15"/>
+          </linearGradient>
+        </defs>
+        {/* central spine */}
         <line
-          x1={MAIN_X}
-          x2={MAIN_X}
-          y1={yOf(0) - nodeGap}
-          y2={yOf(nodes.length - 1) + 20}
+          x1={centerX}
+          y1={nodes[0].y - rowGap}
+          x2={centerX}
+          y2={nodes[nodes.length - 1].y + 40}
           stroke="#e5e7eb"
           strokeWidth="4"
         />
 
-        {/* ─── bars + dots ─────────────────────────────────── */}
-        {nodes.map((n, i) => {
-          const y = yOf(i);
-          const len = barLength(n.start, n.end);
-          const dir = i % 2 === 0 ? 1 : -1;            // zig-zag L / R
-          const x2 = MAIN_X + dir * (BAR_X_OFFSET + len);
-
+        {/* connectors (parent → child) */}
+        {nodes.map(n => {
+          if (!n.parent) return null;
+          const p = idMap.get(n.parent);
+          const pathD = `
+                M ${p.x} ${p.y}
+                Q ${p.x} ${(p.y + n.y) / 2} ${centerX} ${(p.y + n.y) / 2}
+                T ${n.x} ${n.y}
+            `;
           return (
-            <g key={n.id}>
-              {/* branch bar */}
-              <line
-                x1={MAIN_X}
-                y1={y}
-                x2={x2}
-                y2={y}
+            <path
+                key={n.id + '-link'}
+                d={pathD}
+                fill="none"
                 stroke={n.color}
-                strokeWidth="8"
-                strokeLinecap="round"
-              />
-
-              {/* connector dot */}
-              <circle cx={MAIN_X} cy={y} r="10" fill={n.color} />
-
-              {/* label block */}
-              <foreignObject
-                x={dir === 1 ? MAIN_X + 24 : x2 - 260}
-                y={y - 22}
-                width="240"
-                height="64"
-              >
-                <div className="flex flex-col text-sm leading-tight">
-                  <span className="font-semibold text-slate-900 dark:text-slate-100">
-                    {n.title}
-                  </span>
-                  <span className="text-slate-600 dark:text-slate-400">
-                    {n.org ?? n.track}
-                  </span>
-                  <span className="text-xs text-slate-500">
-                    {formatDate(n.start)} – {n.end ? formatDate(n.end) : 'now'}
-                  </span>
-                </div>
-              </foreignObject>
-            </g>
+                strokeWidth="3"
+            />
           );
         })}
+
+        {/* nodes */}
+        {nodes.map(n => (
+          <g key={n.id}>
+            <circle cx={n.x} cy={n.y} r="10" fill={n.color} />
+            <text
+              x={n.x + (n.lane >= 0 ? 16 : -16)}
+              y={n.y + 4}
+              textAnchor={n.lane >= 0 ? 'start' : 'end'}
+              className="text-sm font-medium fill-slate-900 dark:fill-slate-100"
+            >
+              {n.title}
+            </text>
+            <text
+              x={n.x + (n.lane >= 0 ? 16 : -16)}
+              y={n.y + 20}
+              textAnchor={n.lane >= 0 ? 'start' : 'end'}
+              className="text-xs fill-slate-500"
+            >
+              {format(n.start)} – {n.end ? format(n.end) : 'now'}
+            </text>
+            {/* skill petals */}
+            {n.skills?.map((sk, idx) => (
+              <circle
+                key={sk}
+                cx={n.x + 18 * Math.cos((idx / n.skills.length) * 2 * Math.PI)}
+                cy={n.y + 18 * Math.sin((idx / n.skills.length) * 2 * Math.PI)}
+                r="5"
+                fill={skillColors[sk] || '#a3a3a3'}
+              >
+                {/* tooltip */}
+                <title>{sk}</title>
+              </circle>
+            ))}
+          </g>
+        ))}
       </svg>
     </div>
   );
-}
-
-/* util: 2024-06 → Jun 2024 */
-function formatDate(d) {
-  return new Date(d).toLocaleDateString('en-GB', {
-    year: 'numeric',
-    month: 'short'
-  });
 }
