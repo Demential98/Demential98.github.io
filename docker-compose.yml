@@ -1,0 +1,12 @@
+
+
+services:
+  vite-dev:
+    build: .
+    ports:
+      - "9999:9999"  # Allow a range since Vite may switch ports
+    volumes:
+      - .:/app
+      - /app/node_modules     # Prevent host node_modules overwrite
+    environment:
+      - NODE_ENV=development
