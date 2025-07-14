@@ -10,3 +10,5 @@ services:
       - /app/node_modules     # Prevent host node_modules overwrite
     environment:
       - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true   # fallback to polling for file changes
+      - CHOKIDAR_INTERVAL=100      # (optional) poll every 100ms

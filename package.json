@@ -5,7 +5,7 @@
   "type": "module",
   "homepage": "https://Demential98.github.io/",
   "scripts": {
-    "dev": "vite --host --port 9999",
+    "dev": "vite --host 0.0.0.0 --port 9999",
     "build": "vite build",
     "build_old": "vite build && cp dist/index.html dist/404.html",
     "lint": "eslint .",
