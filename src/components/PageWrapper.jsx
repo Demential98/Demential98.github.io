@@ -1,8 +1,8 @@
-import { motion } from 'framer-motion';
+import { motion as Motion} from 'framer-motion';
 
 export default function PageWrapper({ children }) {
   return (
-    <motion.div
+    <Motion.div
       className="h-full flex flex-col"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
@@ -10,7 +10,7 @@ export default function PageWrapper({ children }) {
       transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
       >
       {children}
-    </motion.div>
+    </Motion.div>
     // <div className="h-full flex flex-col">
     //  {children}
     // </div>

@@ -7,7 +7,7 @@ import AppRoutes from './AppRoutes';
 import { SunMoon,Sun, Moon, Globe } from 'lucide-react';
 
 
-
+import { ThemeContext } from './components/ThemeContext';
 
 
 const languageOptions = [
@@ -98,6 +98,7 @@ function App() {
   
 
   return (
+    <ThemeContext.Provider value={{ themeMode, theme, setThemeMode }}>
     <BrowserRouter>
         <div className="flex flex-col h-screen bg-[var(--bg-color)] text-[var(--text-color)] transition-colors">
           {/* NAVBAR */}
@@ -169,6 +170,7 @@ function App() {
           </main>
       </div>
     </BrowserRouter>
+    </ThemeContext.Provider>
   );
 }
 
