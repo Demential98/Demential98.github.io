@@ -1,0 +1,8 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <rect width="64" height="64" fill="none"/>
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, sans-serif"
+        font-size="36" fill="#00FFFF" stroke="#00FFFF" stroke-width="0.5">
+    DB
+  </text>
+</svg>
+
