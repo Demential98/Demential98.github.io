@@ -3,8 +3,14 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - master 
- 
+      - master
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to deploy'
+        required: false
+        default: ${{ github.ref_name }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -12,6 +18,8 @@ jobs:
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.branch || github.ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -23,7 +31,7 @@ jobs:
 
       - name: Build 🔧
         run: npm run build
-      
+
       - name: Copy 404 Pages
         run: cp dist/index.html dist/404.html 
 
