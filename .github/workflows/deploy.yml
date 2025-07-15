@@ -9,13 +9,8 @@ on:
       branch:
         description: 'Select a branch to deploy'
         required: true
-        default: master
-        type: choice
-        options:
-          - master
-          - dev
-          - preview
-          - staging
+        type: string
+
 
 jobs:
   deploy:
