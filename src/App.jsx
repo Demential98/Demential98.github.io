@@ -101,7 +101,7 @@ function App() {
   return (
     <ThemeContext.Provider value={{ themeMode, theme, setThemeMode }}>
       
-    <SplashCursor />
+    
 
     <BrowserRouter>
         <div className="flex flex-col h-screen bg-[var(--bg-color)] text-[var(--text-color)] transition-colors">
@@ -171,9 +171,12 @@ function App() {
 
            <main className="flex-1 h-full min-h-0 overflow-hidden">
             <AppRoutes />
+
           </main>
+
       </div>
     </BrowserRouter>
+    <SplashCursor />
     </ThemeContext.Provider>
   );
 }
