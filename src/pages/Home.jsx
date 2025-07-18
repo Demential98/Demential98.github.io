@@ -10,7 +10,7 @@ export default function Home() {
       </h1>
 
       {/* big username at the very bottom */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center overflow-visible">
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center overflow-visible z-[5]">
         <div
           className="
             font-black leading-none whitespace-nowrap select-none text-center w-full
