@@ -5,12 +5,12 @@ export default function Home() {
 
   return (
     <div className="flex-1 flex flex-col items-center justify-center relative">
-      <h1 className="text-3xl text-center whitespace-pre-line z-10">
+      <h1 className="text-3xl text-center whitespace-pre-line z-10 ">
         {t('welcome_message')}
       </h1>
 
       {/* big username at the very bottom */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center overflow-visible z-[5]">
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center overflow-visible z-[5] ">
         <div
           className="
             font-black leading-none whitespace-nowrap select-none text-center w-full
