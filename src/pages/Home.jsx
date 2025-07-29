@@ -1,13 +1,24 @@
 import { useTranslation } from 'react-i18next';
+import SplitText from "../components/SplitText/SplitText.jsx";
 
 export default function Home() {
   const { t } = useTranslation();
 
   return (
     <div className="flex-1 flex flex-col items-center justify-center relative">
-      <h1 className="text-3xl text-center whitespace-pre-line z-10 ">
-        {t('welcome_message')}
+      <h1 
+        // className="text-3xl text-center whitespace-pre-line z-10 "
+      >
+        <SplitText
+          text={t('welcome_message')}
+          delay={0.1}
+          splitType="chars"
+          triggerOnScroll={true}
+          className="text-3xl text-center whitespace-pre-line z-10"
+        />
       </h1>
+
+
 
       {/* big username at the very bottom */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center overflow-visible z-[5] ">

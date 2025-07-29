@@ -1,0 +1,37 @@
+:root {
+  --text-color: black;
+}
+
+[data-theme='dark'] {
+  --text-color: white;
+}
+
+.split-text-container {
+  color: var(--text-color);
+  display: inline-block;
+  overflow: hidden;
+}
+
+.split-text-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.5em);
+  animation: letterIn 0.25s ease-out forwards;
+  will-change: opacity, transform;
+}
+
+.split-text-container:not(.active) .split-text-letter {
+  animation: none;
+  opacity: 0;
+}
+
+@keyframes letterIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.split-text-letter.space {
+  width: 0.3em; /* preserves spacing when animating */
+}
