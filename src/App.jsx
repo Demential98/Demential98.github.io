@@ -9,6 +9,7 @@ import { SunMoon,Sun, Moon, Globe } from 'lucide-react';
 
 import { ThemeContext } from './components/ThemeContext';
 
+import  SplashCursor  from './components/SplashCursor.jsx';
 
 const languageOptions = [
   { code: 'en', label: '🇺🇸 English' },
@@ -99,6 +100,9 @@ function App() {
 
   return (
     <ThemeContext.Provider value={{ themeMode, theme, setThemeMode }}>
+      
+    
+
     <BrowserRouter>
         <div className="flex flex-col h-screen bg-[var(--bg-color)] text-[var(--text-color)] transition-colors">
           {/* NAVBAR */}
@@ -167,9 +171,12 @@ function App() {
 
            <main className="flex-1 h-full min-h-0 overflow-hidden">
             <AppRoutes />
+
           </main>
+
       </div>
     </BrowserRouter>
+    <SplashCursor />
     </ThemeContext.Provider>
   );
 }
