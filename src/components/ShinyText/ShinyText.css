@@ -1,0 +1,40 @@
+:root {
+  --shine-color: rgba(255, 255, 255, 0.6); /* Strong shine */
+  --shine-base: rgba(0, 0, 0, 1); /* Base text color */
+}
+
+[data-theme='dark'] {
+  --shine-color: rgba(255, 255, 255, 0.7);
+  --shine-base: rgba(255, 255, 255, 1); /* White text in dark mode */
+}
+
+.shiny-text {
+  background: linear-gradient(
+    120deg,
+    var(--shine-base) 0%,
+    var(--shine-base) 45%,
+    var(--shine-color) 50%,
+    var(--shine-base) 55%,
+    var(--shine-base) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+  animation: shine 5s linear infinite;
+}
+
+
+@keyframes shine {
+  0% {
+    background-position: 100%;
+  }
+  100% {
+    background-position: -100%;
+  }
+}
+
+.shiny-text.disabled {
+  animation: none;
+}

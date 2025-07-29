@@ -11,6 +11,9 @@ import { ThemeContext } from './components/ThemeContext';
 
 import  SplashCursor  from './components/SplashCursor.jsx';
 
+import StarBorder from './components/StarBorder/StarBorder.jsx';
+import ShinyText from './components/ShinyText/ShinyText.jsx';
+
 const languageOptions = [
   { code: 'en', label: '🇺🇸 English' },
   { code: 'it', label: '🇮🇹 Italiano' },
@@ -107,9 +110,39 @@ function App() {
         <div className="flex flex-col h-screen bg-[var(--bg-color)] text-[var(--text-color)] transition-colors">
           {/* NAVBAR */}
           <nav className={`sticky top-0 z-50 flex justify-between items-center px-4 py-3 border-b transition-shadow bg-[var(--bg-color)] ${scrolled ? 'shadow-md' : ''}`}>
-          <div className="flex gap-4">
-            <Link to="/" className="underline">{t('home')}</Link>
-            <Link to="/about" className="underline">{t('about')}</Link>
+          <div className="flex gap-4 justify-center">
+            <StarBorder
+              as="div"
+              className="custom-class"
+              color={theme === 'dark' ? 'cyan' : '#020617'}
+              thickness="2"
+              speed="5s"
+            >
+              <Link to="/" >
+                <ShinyText 
+                  text={t('home')}
+                  disabled={false}
+                  speed={3}
+                  className='custom-class'
+                />
+                </Link>
+            </StarBorder>
+            <StarBorder
+              as="div"
+              className="custom-class"
+              color={theme === 'dark' ? 'cyan' : '#020617'}
+              thickness="2"
+              speed="5s"
+            >
+              <Link to="/about" >
+                <ShinyText 
+                  text={t('about')}
+                  disabled={false}
+                  speed={3}
+                  className='custom-class'
+                />
+                </Link>
+            </StarBorder>
           </div>
 
           <div className="relative flex items-center gap-2">
