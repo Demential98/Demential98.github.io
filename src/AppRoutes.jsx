@@ -9,6 +9,7 @@ import PageWrapper from './components/PageWrapper';
 
 
 import Test from './pages/Test';
+import Experience from './pages/Experience';
 
 export default function AppRoutes() {
   const location = useLocation();
@@ -19,6 +20,7 @@ export default function AppRoutes() {
         <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
         <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
         <Route path="/test" element={<PageWrapper><Test /></PageWrapper>} />
+        <Route path="/experience" element={<PageWrapper><Experience /></PageWrapper>} />
         <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
       </Routes>
     </AnimatePresence>

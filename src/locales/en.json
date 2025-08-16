@@ -5,5 +5,10 @@
   "home": "Home",
   "about": "About",
   "not_found_message": "These aren't the droids you're looking for.",
-  "go_home": "Go back home"
+  "go_home": "Go back home",
+  "experience_title": "Quest Log",
+  "experience_loading": "Loading quests...",
+  "experience_present": "Present",
+  "experience_close": "Back",
+  "experience_visit": "Visit"
 }
