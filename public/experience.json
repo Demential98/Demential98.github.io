@@ -1,0 +1,37 @@
+{
+  "mainQuest": {
+    "title": "Forge the Ultimate Portfolio",
+    "startDate": "2023-01-01",
+    "endDate": null,
+    "description": "A never-ending mission to craft the perfect portfolio using modern web technologies and share experiments with the world.",
+    "link": "https://github.com/Demential98",
+    "image": "https://placehold.co/600x400?text=Main+Quest"
+  },
+  "sideQuests": [
+    {
+      "title": "DIY NAS Build",
+      "startDate": "2023-05-01",
+      "endDate": "2023-08-15",
+      "description": "Built a personal NAS using a Raspberry Pi and custom software for backups and media streaming.",
+      "link": "https://github.com/Demential98/diy-nas",
+      "image": "https://placehold.co/600x400?text=NAS"
+    },
+    {
+      "title": "Retro Console Mod",
+      "startDate": "2024-02-01",
+      "endDate": null,
+      "description": "Modding an old handheld console with a new screen, rechargeable battery, and custom software.",
+      "link": "https://github.com/Demential98/retro-console",
+      "image": null
+    },
+    {
+      "title": "Portfolio V2",
+      "startDate": "2024-09-01",
+      "endDate": null,
+      "description": "Rewriting my portfolio with React, Vite, and Tailwind to showcase projects and experiments.",
+      "link": "https://github.com/Demential98/Demential98.github.io",
+      "image": "https://placehold.co/600x400?text=Portfolio"
+    }
+  ]
+}
+
