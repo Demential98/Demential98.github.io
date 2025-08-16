@@ -1,0 +1,28 @@
+{
+  "mainQuest": {
+    "title": "Forge the Ultimate Portfolio",
+    "startDate": "2024-01-01",
+    "endDate": "2024-12-31",
+    "description": "Design and build a personal site showcasing projects, writings and experiments.",
+    "link": "https://github.com/Demential98/Demential98.github.io",
+    "image": "https://placehold.co/600x400/orange/white"
+  },
+  "sideQuests": [
+    {
+      "title": "DIY NAS Build",
+      "startDate": "2023-05-01",
+      "endDate": "2023-06-15",
+      "description": "Assemble a low‑power network attached storage using open‑source tools.",
+      "link": "https://github.com/Demential98/diy-nas",
+      "image": "https://placehold.co/600x400/steelblue/white"
+    },
+    {
+      "title": "React Game Prototype",
+      "startDate": "2023-07-01",
+      "endDate": "2023-08-01",
+      "description": "Experiment with game mechanics in a small browser game built with React.",
+      "link": "https://github.com/Demential98/react-game",
+      "image": ""
+    }
+  ]
+}
