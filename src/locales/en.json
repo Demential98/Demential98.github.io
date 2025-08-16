@@ -4,6 +4,11 @@
   "light_mode": "Switch to Light Mode",
   "home": "Home",
   "about": "About",
+  "experience": "Experience",
   "not_found_message": "These aren't the droids you're looking for.",
-  "go_home": "Go back home"
+  "go_home": "Go back home",
+  "experience_title": "Experience",
+  "experience_main_quests": "Main Quest",
+  "experience_side_quests": "Side Quests",
+  "experience_view_more": "View more"
 }

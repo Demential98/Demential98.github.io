@@ -1,0 +1,34 @@
+{
+  "quests": [
+    {
+      "id": "portfolio",
+      "type": "main",
+      "title": "Launch Portfolio Site",
+      "start": "2024-01",
+      "end": "2024-04",
+      "description": "Built and deployed my personal portfolio using React, Vite and Tailwind.",
+      "url": "https://github.com/Demential98/Demential98.github.io",
+      "image": "https://placehold.co/600x400?text=Portfolio"
+    },
+    {
+      "id": "diy-nas",
+      "type": "side",
+      "title": "DIY NAS",
+      "start": "2023-05",
+      "end": "2023-07",
+      "description": "Assembled a home server to store my files and media.",
+      "url": "https://github.com/Demential98/diy-nas",
+      "image": "https://placehold.co/600x400?text=NAS"
+    },
+    {
+      "id": "printer-mods",
+      "type": "side",
+      "title": "3D Printer Mods",
+      "start": "2022-02",
+      "end": "2022-04",
+      "description": "Upgraded my 3D printer with silent drivers and auto bed leveling.",
+      "url": "https://example.com/3d-printer",
+      "image": null
+    }
+  ]
+}
