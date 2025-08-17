@@ -90,7 +90,7 @@ function App() {
   useEffect(() => {
     i18n.changeLanguage(language);
     localStorage.setItem('lang', language);
-  }, [language]);
+  }, [language, i18n]);
 
   const filteredLanguages = languageOptions.filter(l =>
     l.label.toLowerCase().includes(langSearch.toLowerCase())
@@ -135,13 +135,29 @@ function App() {
               speed="5s"
             >
               <Link to="/about" >
-                <ShinyText 
+                <ShinyText
                   text={t('about')}
                   disabled={false}
                   speed={3}
                   className='custom-class'
                 />
                 </Link>
+            </StarBorder>
+            <StarBorder
+              as="div"
+              className="custom-class"
+              color={theme === 'dark' ? 'cyan' : '#020617'}
+              thickness="2"
+              speed="5s"
+            >
+              <Link to="/experience" >
+                <ShinyText
+                  text={t('experience')}
+                  disabled={false}
+                  speed={3}
+                  className='custom-class'
+                />
+              </Link>
             </StarBorder>
           </div>
 

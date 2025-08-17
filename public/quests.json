@@ -1,14 +1,26 @@
 {
-  "mainQuest": {
-    "id": "main",
-    "type": "main",
-    "title": "Forge the Ultimate Portfolio",
-    "description": "Document every experiment and project to craft a living compendium of skills.",
-    "startDate": "2023-01-01",
-    "endDate": null,
-    "url": "https://github.com/Demential98",
-    "image": "https://placekitten.com/400/200"
-  },
+  "mainQuests": [
+    {
+      "id": "main1",
+      "type": "main",
+      "title": "Forge the Ultimate Portfolio",
+      "description": "Document every experiment and project to craft a living compendium of skills.",
+      "startDate": "2023-01-01",
+      "endDate": null,
+      "url": "https://github.com/Demential98",
+      "image": "https://placekitten.com/400/200"
+    },
+    {
+      "id": "main2",
+      "type": "main",
+      "title": "Master React",
+      "description": "Build advanced user interfaces and hooks mastery.",
+      "startDate": "2024-04-01",
+      "endDate": null,
+      "url": "https://react.dev",
+      "image": "https://placekitten.com/401/200"
+    }
+  ],
   "sideQuests": [
     {
       "id": "diy-nas",
@@ -18,7 +30,8 @@
       "startDate": "2024-02-01",
       "endDate": "2024-03-01",
       "url": "https://github.com/Demential98/diy-nas",
-      "image": "https://placekitten.com/300/200"
+      "image": "https://placekitten.com/300/200",
+      "father": "main1"
     },
     {
       "id": "retro-pi",
@@ -28,7 +41,18 @@
       "startDate": "2023-08-15",
       "endDate": "2023-09-10",
       "url": "https://github.com/Demential98/retropie-arcade",
-      "image": null
+      "image": null,
+      "father": "main2"
+    },
+    {
+      "id": "open-source",
+      "type": "side",
+      "title": "Open Source Contribution",
+      "description": "Contributed patches to popular GitHub projects.",
+      "startDate": "2024-05-01",
+      "endDate": null,
+      "url": "https://github.com",
+      "image": "https://placekitten.com/302/200"
     }
   ]
 }

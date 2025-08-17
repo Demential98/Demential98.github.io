@@ -1,20 +1,21 @@
-import "./StarBorder.css";
+import './StarBorder.css';
 
 const StarBorder = ({
-  as: Component = "button",
-  className = "",
-  color = "white",
-  speed = "6s",
+  as = 'button',
+  className = '',
+  color = 'white',
+  speed = '6s',
   thickness = 1,
   children,
   ...rest
 }) => {
+  const Component = as;
   return (
-    <Component 
-      className={`star-border-container ${className}`} 
+    <Component
+      className={`star-border-container ${className}`}
       style={{
         padding: `${thickness}px 0`,
-        ...rest.style
+        ...rest.style,
       }}
       {...rest}
     >
