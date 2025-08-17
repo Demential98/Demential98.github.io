@@ -1,13 +1,14 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { resolve } from 'path';
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // https://vite.dev/config/
 export default defineConfig({
   base: '/',
-  plugins: [
-    react(),
-    ],
+  plugins: [react()],
   build: {
     rollupOptions: {
       input: {

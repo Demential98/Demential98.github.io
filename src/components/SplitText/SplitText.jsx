@@ -54,7 +54,7 @@ const SplitText = ({
     <p
       ref={containerRef}
       className={`split-text-container ${active ? 'active' : ''} ${className}`}
-      style={{  whiteSpace: 'pre-wrap' }}
+      style={{ textAlign, whiteSpace: 'pre-wrap' }}
     >
       {renderLetters()}
     </p>

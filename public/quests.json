@@ -1,18 +1,19 @@
 {
-  "mainQuest": {
-    "id": "main",
-    "type": "main",
-    "title": "Forge the Ultimate Portfolio",
-    "description": "Document every experiment and project to craft a living compendium of skills.",
-    "startDate": "2023-01-01",
-    "endDate": null,
-    "url": "https://github.com/Demential98",
-    "image": "https://placekitten.com/400/200"
-  },
-  "sideQuests": [
+  "quests": [
+    {
+      "id": "main1",
+      "type": "main",
+      "title": "Forge the Ultimate Portfolio",
+      "description": "Document every experiment and project to craft a living compendium of skills.",
+      "startDate": "2023-01-01",
+      "endDate": null,
+      "url": "https://github.com/Demential98",
+      "image": "https://placekitten.com/400/200"
+    },
     {
       "id": "diy-nas",
       "type": "side",
+      "father": "main1",
       "title": "DIY NAS",
       "description": "Built a network attached storage from spare PC parts and open-source software.",
       "startDate": "2024-02-01",
@@ -29,6 +30,28 @@
       "endDate": "2023-09-10",
       "url": "https://github.com/Demential98/retropie-arcade",
       "image": null
+    },
+    {
+      "id": "main2",
+      "type": "main",
+      "title": "Conquer the Job Market",
+      "description": "Level up interview skills and apply to dream companies.",
+      "startDate": "2024-04-01",
+      "endDate": null,
+      "url": "https://linkedin.com/in/",
+      "image": "https://placekitten.com/401/200"
+    },
+    {
+      "id": "k8s-lab",
+      "type": "side",
+      "father": "main2",
+      "title": "Kubernetes Lab",
+      "description": "Experimented with container orchestration using K8s and Helm charts.",
+      "startDate": "2024-05-01",
+      "endDate": null,
+      "url": "https://github.com/Demential98/k8s-lab",
+      "image": null
     }
   ]
 }
+
