@@ -14,6 +14,15 @@ function buildQuestTree(list) {
       roots.push(map[q.id]);
     }
   });
+
+  function sortNodes(nodes) {
+    nodes.sort(
+      (a, b) => new Date(a.startDate) - new Date(b.startDate),
+    );
+    nodes.forEach((n) => sortNodes(n.children));
+  }
+
+  sortNodes(roots);
   return roots;
 }
 
@@ -69,61 +78,71 @@ export default function Experience() {
     return <div className="p-4">{t('experience_loading')}</div>;
   }
 
-  const mainRoots = roots.filter((q) => q.type === 'main');
-  const otherRoots = roots.filter((q) => q.type !== 'main');
-
   return (
     <div className="p-4 flex flex-col items-center">
-      <h1 className="text-3xl mb-6">{t('experience_title')}</h1>
-      <div className="w-full max-w-4xl space-y-8">
-        <div className="relative">
-          <div className="absolute left-3 top-0 bottom-0 w-px bg-yellow-500" />
-          <div className="space-y-8 ml-6">
-            {mainRoots.map((q) => (
-              <div key={q.id} className="relative pl-6">
-                <div className="absolute left-0 top-6 w-6 h-px bg-yellow-500" />
-                <QuestNode
-                  quest={q}
-                  onSelect={setSelected}
-                  presentText={t('experience_present')}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
+      <h1 className="mb-6 text-3xl">{t('experience_title')}</h1>
+      <div className="relative w-full max-w-4xl">
+        <div className="absolute left-1/2 top-0 bottom-0 w-px bg-yellow-500" />
+        <div className="space-y-12">
+          {roots.map((q, idx) => (
+            <div key={q.id} className="relative flex w-full">
+              {idx % 2 === 0 ? (
+                <div className="w-1/2 pr-8 flex justify-end">
+                  <QuestNode
+                    quest={q}
+                    onSelect={setSelected}
+                    presentText={t('experience_present')}
+                  />
+                </div>
+              ) : (
+                <div className="w-1/2" />
+              )}
 
-        {otherRoots.length > 0 && (
-          <div className="space-y-4">
-            {otherRoots.map((q) => (
-              <QuestNode
-                key={q.id}
-                quest={q}
-                onSelect={setSelected}
-                presentText={t('experience_present')}
+              <div
+                className={`absolute top-6 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-4 border-white dark:border-neutral-900 ${
+                  q.type === 'main' ? 'bg-yellow-500' : 'bg-neutral-500'
+                }`}
               />
-            ))}
-          </div>
-        )}
+              <div
+                className={`absolute top-6 left-1/2 w-1/2 h-px ${
+                  q.type === 'main' ? 'bg-yellow-500' : 'bg-neutral-500'
+                } ${idx % 2 === 0 ? '-translate-x-full' : ''}`}
+              />
+
+              {idx % 2 === 0 ? (
+                <div className="w-1/2" />
+              ) : (
+                <div className="w-1/2 pl-8 flex justify-start">
+                  <QuestNode
+                    quest={q}
+                    onSelect={setSelected}
+                    presentText={t('experience_present')}
+                  />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
 
       {selected && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white dark:bg-neutral-900 p-6 rounded max-w-lg w-full overflow-y-auto max-h-full">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="max-w-lg w-full max-h-full overflow-y-auto rounded bg-white p-6 dark:bg-neutral-900">
             <button
-              className="mb-4 text-sm text-right w-full hover:underline"
+              className="mb-4 w-full text-right text-sm hover:underline"
               onClick={() => setSelected(null)}
             >
               {t('experience_close')}
             </button>
-            <h2 className="text-2xl font-bold mb-2">{selected.title}</h2>
-            <p className="text-sm text-neutral-500 mb-2">
+            <h2 className="mb-2 text-2xl font-bold">{selected.title}</h2>
+            <p className="mb-2 text-sm text-neutral-500">
               {selected.startDate} – {selected.endDate || t('experience_present')}
             </p>
             {selected.image && (
               <img
                 src={selected.image}
                 alt={selected.title}
-                className="mb-4 rounded w-full object-cover"
+                className="mb-4 w-full rounded object-cover"
               />
             )}
             <p className="mb-4 whitespace-pre-line">{selected.description}</p>
