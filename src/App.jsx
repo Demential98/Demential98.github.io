@@ -4,12 +4,11 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 import AppRoutes from './AppRoutes';
 
-import { SunMoon,Sun, Moon, Globe } from 'lucide-react';
-
+import { SunMoon, Sun, Moon, Globe } from 'lucide-react';
 
 import { ThemeContext } from './components/ThemeContext';
 
-import  SplashCursor  from './components/SplashCursor.jsx';
+import SplashCursor from './components/SplashCursor.jsx';
 
 import StarBorder from './components/StarBorder/StarBorder.jsx';
 import ShinyText from './components/ShinyText/ShinyText.jsx';
@@ -20,11 +19,9 @@ const languageOptions = [
   { code: 'es', label: '🇪🇸 Español' }, // add more as needed
 ];
 
-
 const ENABLE_LANG_SEARCH = true;
 
-function App() {  
-
+function App() {
   // SCROLL NAVBAR
   const [scrolled, setScrolled] = useState(false);
 
@@ -34,51 +31,43 @@ function App() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-
-
-
-
   // 🌗 Theme handling
   const getStoredTheme = () => localStorage.getItem('theme-mode') || 'auto';
-  
+
   const [themeMode, setThemeMode] = useState(getStoredTheme); // 'light' | 'dark' | 'auto'
-  
+
   const getEffectiveTheme = () => {
     if (themeMode === 'light' || themeMode === 'dark') return themeMode;
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   };
-  
+
   const [theme, setTheme] = useState(getEffectiveTheme);
-  
+
   useEffect(() => {
     const updateTheme = () => {
       const newTheme = getEffectiveTheme();
       setTheme(newTheme);
       document.documentElement.setAttribute('data-theme', newTheme);
     };
-  
+
     updateTheme();
-  
+
     if (themeMode === 'auto') {
       const media = window.matchMedia('(prefers-color-scheme: dark)');
       media.addEventListener('change', updateTheme);
       return () => media.removeEventListener('change', updateTheme);
     }
   }, [themeMode]);
-  
+
   const toggleTheme = () => {
-    console.log(themeMode)
-    setThemeMode(prev => {
-      const newMode =
-        prev === 'light' ? 'dark' :
-        prev === 'dark' ? 'auto' :
-        'light';
+    console.log(themeMode);
+    setThemeMode((prev) => {
+      const newMode = prev === 'light' ? 'dark' : prev === 'dark' ? 'auto' : 'light';
 
       localStorage.setItem('theme-mode', newMode);
       return newMode;
     });
   };
-
 
   // LANGUAGE
   const { t, i18n } = useTranslation();
@@ -92,72 +81,81 @@ function App() {
     localStorage.setItem('lang', language);
   }, [language]);
 
-  const filteredLanguages = languageOptions.filter(l =>
+  const filteredLanguages = languageOptions.filter((l) =>
     l.label.toLowerCase().includes(langSearch.toLowerCase())
   );
 
-
-  
-
-  
-
   return (
     <ThemeContext.Provider value={{ themeMode, theme, setThemeMode }}>
-      
-    
-
-    <BrowserRouter>
+      <BrowserRouter>
         <div className="flex flex-col h-screen bg-[var(--bg-color)] text-[var(--text-color)] transition-colors">
           {/* NAVBAR */}
-          <nav className={`sticky top-0 z-50 flex justify-between items-center px-4 py-3 border-b transition-shadow bg-[var(--bg-color)] ${scrolled ? 'shadow-md' : ''}`}>
-          <div className="flex gap-4 justify-center">
-            <StarBorder
-              as="div"
-              className="custom-class"
-              color={theme === 'dark' ? 'cyan' : '#020617'}
-              thickness="2"
-              speed="5s"
-            >
-              <Link to="/" >
-                <ShinyText 
-                  text={t('home')}
-                  disabled={false}
-                  speed={3}
-                  className='custom-class'
-                />
-                </Link>
-            </StarBorder>
-            <StarBorder
-              as="div"
-              className="custom-class"
-              color={theme === 'dark' ? 'cyan' : '#020617'}
-              thickness="2"
-              speed="5s"
-            >
-              <Link to="/about" >
-                <ShinyText 
-                  text={t('about')}
-                  disabled={false}
-                  speed={3}
-                  className='custom-class'
-                />
-                </Link>
-            </StarBorder>
-          </div>
-
-          <div className="relative flex items-center gap-2">
-            {/* Language Dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => setLangDropdownOpen(prev => !prev)}
-                className="p-2 border rounded hover:bg-gray-200 flex items-center gap-2"
+          <nav
+            className={`sticky top-0 z-50 flex justify-between items-center px-4 py-3 border-b transition-shadow bg-[var(--bg-color)] ${
+              scrolled ? 'shadow-md' : ''
+            }`}
+          >
+            <div className="flex gap-4 justify-center">
+              <StarBorder
+                as="div"
+                className="custom-class"
+                color={theme === 'dark' ? 'cyan' : '#020617'}
+                thickness="2"
+                speed="5s"
               >
-                <Globe className="w-5 h-5" />
-                {language.toUpperCase()}
-              </button>
-              <div
+                <Link to="/">
+                  <ShinyText text={t('home')} disabled={false} speed={3} className="custom-class" />
+                </Link>
+              </StarBorder>
+              <StarBorder
+                as="div"
+                className="custom-class"
+                color={theme === 'dark' ? 'cyan' : '#020617'}
+                thickness="2"
+                speed="5s"
+              >
+                <Link to="/about">
+                  <ShinyText
+                    text={t('about')}
+                    disabled={false}
+                    speed={3}
+                    className="custom-class"
+                  />
+                </Link>
+              </StarBorder>
+              <StarBorder
+                as="div"
+                className="custom-class"
+                color={theme === 'dark' ? 'cyan' : '#020617'}
+                thickness="2"
+                speed="5s"
+              >
+                <Link to="/experience">
+                  <ShinyText
+                    text={t('experience')}
+                    disabled={false}
+                    speed={3}
+                    className="custom-class"
+                  />
+                </Link>
+              </StarBorder>
+            </div>
+
+            <div className="relative flex items-center gap-2">
+              {/* Language Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={() => setLangDropdownOpen((prev) => !prev)}
+                  className="p-2 border rounded hover:bg-gray-200 flex items-center gap-2"
+                >
+                  <Globe className="w-5 h-5" />
+                  {language.toUpperCase()}
+                </button>
+                <div
                   className={`absolute right-0 top-full mt-2 w-48 bg-white text-black border rounded shadow-md z-10 p-2 transition-all duration-200 transform ${
-                    langDropdownOpen ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto' : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
+                    langDropdownOpen
+                      ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto'
+                      : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
                   }`}
                 >
                   {ENABLE_LANG_SEARCH && (
@@ -165,7 +163,7 @@ function App() {
                       type="text"
                       placeholder="Search language..."
                       value={langSearch}
-                      onChange={e => setLangSearch(e.target.value)}
+                      onChange={(e) => setLangSearch(e.target.value)}
                       className="mb-2 w-full p-1 border rounded"
                     />
                   )}
@@ -183,33 +181,30 @@ function App() {
                     </button>
                   ))}
                 </div>
-              
+              </div>
+
+              {/* Theme toggle button */}
+              <button
+                onClick={toggleTheme}
+                className="p-2 border rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-150"
+              >
+                {themeMode === 'light' && <Sun className="w-5 h-5 text-yellow-600" />}
+                {themeMode === 'dark' && <Moon className="w-5 h-5 text-white" />}
+                {themeMode === 'auto' && (
+                  <SunMoon
+                    className={`w-5 h-5 ${theme === 'dark' ? 'text-gray-300' : 'text-yellow-400'}`}
+                  />
+                )}
+              </button>
             </div>
+          </nav>
 
-            {/* Theme toggle button */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 border rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-150"
-            >
-              {themeMode === 'light' && <Sun className="w-5 h-5 text-yellow-600" />}
-              {themeMode === 'dark' && <Moon className="w-5 h-5 text-white" />}
-              {themeMode === 'auto' && (
-                <SunMoon
-                  className={`w-5 h-5 ${theme === 'dark' ? 'text-gray-300' : 'text-yellow-400'}`}
-                />
-              )}
-            </button>
-          </div>
-        </nav>
-
-           <main className="flex-1 h-full min-h-0 overflow-hidden">
+          <main className="flex-1 h-full min-h-0 overflow-hidden">
             <AppRoutes />
-
           </main>
-
-      </div>
-    </BrowserRouter>
-    <SplashCursor />
+        </div>
+      </BrowserRouter>
+      <SplashCursor />
     </ThemeContext.Provider>
   );
 }
