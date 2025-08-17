@@ -1,39 +1,109 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+function buildQuestTree(list) {
+  const map = {};
+  list.forEach((q) => {
+    map[q.id] = { ...q, children: [] };
+  });
+  const roots = [];
+  list.forEach((q) => {
+    if (q.father && map[q.father]) {
+      map[q.father].children.push(map[q.id]);
+    } else {
+      roots.push(map[q.id]);
+    }
+  });
+  return roots;
+}
+
+function QuestNode({ quest, onSelect, presentText, isChild = false }) {
+  return (
+    <div className={isChild ? 'relative pl-6 mt-6' : 'relative'}>
+      {isChild && (
+        <>
+          <div className="absolute left-0 top-6 w-6 h-px bg-neutral-500" />
+          <div className="absolute left-0 top-6 bottom-0 border-l border-neutral-500" />
+        </>
+      )}
+      <div
+        className={`p-4 border rounded cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800 ${quest.type === 'main' ? 'border-yellow-500' : 'border-neutral-500'}`}
+        onClick={() => onSelect(quest)}
+      >
+        <h2 className="text-xl font-semibold">{quest.title}</h2>
+        <p className="text-sm text-neutral-500">
+          {quest.startDate} – {quest.endDate || presentText}
+        </p>
+        <p className="mt-2 overflow-hidden text-ellipsis whitespace-nowrap">{quest.description}</p>
+      </div>
+      {quest.children.length > 0 && (
+        <div className="ml-6">
+          {quest.children.map((child) => (
+            <QuestNode
+              key={child.id}
+              quest={child}
+              onSelect={onSelect}
+              presentText={presentText}
+              isChild
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function Experience() {
   const { t } = useTranslation();
-  const [quests, setQuests] = useState(null);
+  const [roots, setRoots] = useState(null);
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
     fetch('/quests.json')
       .then((res) => res.json())
-      .then((data) => setQuests([data.mainQuest, ...data.sideQuests]))
-      .catch(() => setQuests([]));
+      .then((data) => setRoots(buildQuestTree(data.quests)))
+      .catch(() => setRoots([]));
   }, []);
 
-  if (!quests) {
+  if (!roots) {
     return <div className="p-4">{t('experience_loading')}</div>;
   }
+
+  const mainRoots = roots.filter((q) => q.type === 'main');
+  const otherRoots = roots.filter((q) => q.type !== 'main');
 
   return (
     <div className="p-4 flex flex-col items-center">
       <h1 className="text-3xl mb-6">{t('experience_title')}</h1>
-      <div className="grid gap-4 w-full max-w-4xl md:grid-cols-2">
-        {quests.map((q) => (
-          <div
-            key={q.id}
-            className={`p-4 border rounded cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800 ${q.type === 'main' ? 'border-yellow-500' : 'border-neutral-500'}`}
-            onClick={() => setSelected(q)}
-          >
-            <h2 className="text-xl font-semibold">{q.title}</h2>
-            <p className="text-sm text-neutral-500">
-              {q.startDate} – {q.endDate || t('experience_present')}
-            </p>
-            <p className="mt-2 overflow-hidden text-ellipsis whitespace-nowrap">{q.description}</p>
+      <div className="w-full max-w-4xl space-y-8">
+        <div className="relative">
+          <div className="absolute left-3 top-0 bottom-0 w-px bg-yellow-500" />
+          <div className="space-y-8 ml-6">
+            {mainRoots.map((q) => (
+              <div key={q.id} className="relative pl-6">
+                <div className="absolute left-0 top-6 w-6 h-px bg-yellow-500" />
+                <QuestNode
+                  quest={q}
+                  onSelect={setSelected}
+                  presentText={t('experience_present')}
+                />
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+
+        {otherRoots.length > 0 && (
+          <div className="space-y-4">
+            {otherRoots.map((q) => (
+              <QuestNode
+                key={q.id}
+                quest={q}
+                onSelect={setSelected}
+                presentText={t('experience_present')}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       {selected && (
@@ -73,3 +143,4 @@ export default function Experience() {
     </div>
   );
 }
+
