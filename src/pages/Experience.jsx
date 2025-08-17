@@ -1,37 +1,108 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+function QuestItem({ quest, onSelect, isChild, isLast, t }) {
+  return (
+    <div className="relative pl-8 pb-8">
+      {!isLast && (
+        <span className="absolute left-0 top-4 bottom-0 w-px bg-neutral-300" />
+      )}
+      {isChild && (
+        <span className="absolute left-0 top-4 w-8 border-t border-neutral-300" />
+      )}
+      <span
+        className={`absolute left-0 top-3 w-4 h-4 rounded-full ${
+          quest.type === 'main' ? 'bg-yellow-500' : 'bg-neutral-500'
+        }`}
+      />
+      <div className="ml-4">
+        <div
+          className={`p-4 border rounded cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800 ${
+            quest.type === 'main' ? 'border-yellow-500' : 'border-neutral-500'
+          }`}
+          onClick={() => onSelect(quest)}
+        >
+          <h2 className="text-xl font-semibold">{quest.title}</h2>
+          <p className="text-sm text-neutral-500">
+            {quest.startDate} – {quest.endDate || t('experience_present')}
+          </p>
+          <p className="mt-2 overflow-hidden text-ellipsis whitespace-nowrap">
+            {quest.description}
+          </p>
+        </div>
+        {quest.children.length > 0 && (
+          <div className="mt-4">
+            {quest.children.map((child, idx) => (
+              <QuestItem
+                key={child.id}
+                quest={child}
+                onSelect={onSelect}
+                isChild
+                isLast={idx === quest.children.length - 1}
+                t={t}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function Experience() {
   const { t } = useTranslation();
-  const [quests, setQuests] = useState(null);
+  const [groups, setGroups] = useState(null);
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
     fetch('/quests.json')
       .then((res) => res.json())
-      .then((data) => setQuests([data.mainQuest, ...data.sideQuests]))
-      .catch(() => setQuests([]));
+      .then((data) => {
+        const map = new Map();
+        data.quests.forEach((q) => map.set(q.id, { ...q, children: [] }));
+        map.forEach((q) => {
+          if (q.father && map.has(q.father)) {
+            map.get(q.father).children.push(q);
+          }
+        });
+        const g = {};
+        map.forEach((q) => {
+          if (!q.father) {
+            const groupId = q.group || 0;
+            if (!g[groupId]) g[groupId] = [];
+            g[groupId].push(q);
+          }
+        });
+        Object.values(g).forEach((arr) =>
+          arr.sort(
+            (a, b) => new Date(a.startDate) - new Date(b.startDate)
+          )
+        );
+        setGroups(g);
+      })
+      .catch(() => setGroups({}));
   }, []);
 
-  if (!quests) {
+  if (!groups) {
     return <div className="p-4">{t('experience_loading')}</div>;
   }
 
   return (
     <div className="p-4 flex flex-col items-center">
       <h1 className="text-3xl mb-6">{t('experience_title')}</h1>
-      <div className="grid gap-4 w-full max-w-4xl md:grid-cols-2">
-        {quests.map((q) => (
-          <div
-            key={q.id}
-            className={`p-4 border rounded cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800 ${q.type === 'main' ? 'border-yellow-500' : 'border-neutral-500'}`}
-            onClick={() => setSelected(q)}
-          >
-            <h2 className="text-xl font-semibold">{q.title}</h2>
-            <p className="text-sm text-neutral-500">
-              {q.startDate} – {q.endDate || t('experience_present')}
-            </p>
-            <p className="mt-2 overflow-hidden text-ellipsis whitespace-nowrap">{q.description}</p>
+      <div className="flex flex-col gap-10 w-full max-w-3xl">
+        {Object.entries(groups).map(([groupId, quests]) => (
+          <div key={groupId} className="relative pl-4">
+            <span className="absolute left-1 top-0 bottom-0 w-px bg-yellow-500" />
+            {quests.map((q, idx) => (
+              <QuestItem
+                key={q.id}
+                quest={q}
+                onSelect={setSelected}
+                isLast={idx === quests.length - 1}
+                t={t}
+              />
+            ))}
           </div>
         ))}
       </div>
@@ -73,3 +144,4 @@ export default function Experience() {
     </div>
   );
 }
+

@@ -135,8 +135,24 @@ function App() {
               speed="5s"
             >
               <Link to="/about" >
-                <ShinyText 
+                <ShinyText
                   text={t('about')}
+                  disabled={false}
+                  speed={3}
+                  className='custom-class'
+                />
+                </Link>
+            </StarBorder>
+            <StarBorder
+              as="div"
+              className="custom-class"
+              color={theme === 'dark' ? 'cyan' : '#020617'}
+              thickness="2"
+              speed="5s"
+            >
+              <Link to="/experience" >
+                <ShinyText
+                  text={t('experience')}
                   disabled={false}
                   speed={3}
                   className='custom-class'

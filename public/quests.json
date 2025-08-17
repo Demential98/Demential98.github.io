@@ -1,18 +1,32 @@
 {
-  "mainQuest": {
-    "id": "main",
-    "type": "main",
-    "title": "Forge the Ultimate Portfolio",
-    "description": "Document every experiment and project to craft a living compendium of skills.",
-    "startDate": "2023-01-01",
-    "endDate": null,
-    "url": "https://github.com/Demential98",
-    "image": "https://placekitten.com/400/200"
-  },
-  "sideQuests": [
+  "quests": [
+    {
+      "id": "main-portfolio",
+      "type": "main",
+      "group": 1,
+      "title": "Forge the Ultimate Portfolio",
+      "description": "Document every experiment and project to craft a living compendium of skills.",
+      "startDate": "2023-01-01",
+      "endDate": null,
+      "url": "https://github.com/Demential98",
+      "image": "https://placekitten.com/400/200"
+    },
+    {
+      "id": "legend-dev",
+      "type": "main",
+      "group": 2,
+      "title": "Become a Legendary Developer",
+      "description": "Ship projects and conquer challenges.",
+      "startDate": "2024-01-01",
+      "endDate": null,
+      "url": null,
+      "image": null
+    },
     {
       "id": "diy-nas",
       "type": "side",
+      "group": 1,
+      "father": "main-portfolio",
       "title": "DIY NAS",
       "description": "Built a network attached storage from spare PC parts and open-source software.",
       "startDate": "2024-02-01",
@@ -23,6 +37,7 @@
     {
       "id": "retro-pi",
       "type": "side",
+      "group": 1,
       "title": "RetroPie Arcade",
       "description": "Configured a Raspberry Pi to emulate classic consoles and built a mini arcade cabinet.",
       "startDate": "2023-08-15",
@@ -32,3 +47,4 @@
     }
   ]
 }
+

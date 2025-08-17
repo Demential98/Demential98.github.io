@@ -23,8 +23,6 @@ const FuzzyText = ({
   const canvas = canvasRef.current;
   if (!canvas) return;
 
-  let lastColor = "";
-  let lastFontSize = "";
 
   const drawText = async () => {
     if (document.fonts?.ready) await document.fonts.ready;
@@ -182,9 +180,7 @@ const FuzzyText = ({
       }
     };
 
-    canvas.cleanupFuzzyText = cleanup;
-    lastColor = resolvedColor;
-    lastFontSize = fontSizeStr;
+      canvas.cleanupFuzzyText = cleanup;
   };
 
   drawText();

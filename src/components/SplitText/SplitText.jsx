@@ -6,7 +6,7 @@ const SplitText = ({
   className = '',
   delay = 0.05,
   triggerOnScroll = true,
-  textAlign = 'left',
+    textAlign = 'left',
 }) => {
   const containerRef = useRef(null);
   const [active, setActive] = useState(!triggerOnScroll);
@@ -53,8 +53,8 @@ const SplitText = ({
   return (
     <p
       ref={containerRef}
-      className={`split-text-container ${active ? 'active' : ''} ${className}`}
-      style={{  whiteSpace: 'pre-wrap' }}
+        className={`split-text-container ${active ? 'active' : ''} ${className}`}
+        style={{ whiteSpace: 'pre-wrap', textAlign }}
     >
       {renderLetters()}
     </p>
