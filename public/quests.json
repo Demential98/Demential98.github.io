@@ -1,18 +1,45 @@
 {
-  "mainQuest": {
-    "id": "main",
-    "type": "main",
-    "title": "Forge the Ultimate Portfolio",
-    "description": "Document every experiment and project to craft a living compendium of skills.",
-    "startDate": "2023-01-01",
-    "endDate": null,
-    "url": "https://github.com/Demential98",
-    "image": "https://placekitten.com/400/200"
-  },
-  "sideQuests": [
+  "quests": [
+    {
+      "id": "mq1",
+      "type": "main",
+      "chain": 1,
+      "order": 1,
+      "title": "Forge the Ultimate Portfolio",
+      "description": "Document every experiment and project to craft a living compendium of skills.",
+      "startDate": "2023-01-01",
+      "endDate": null,
+      "url": "https://github.com/Demential98",
+      "image": "https://placekitten.com/400/200"
+    },
+    {
+      "id": "mq1-2",
+      "type": "main",
+      "chain": 1,
+      "order": 2,
+      "title": "Deploy Portfolio",
+      "description": "Ship the site and gather feedback.",
+      "startDate": "2023-06-01",
+      "endDate": null,
+      "url": null,
+      "image": null
+    },
+    {
+      "id": "mq2-1",
+      "type": "main",
+      "chain": 2,
+      "order": 1,
+      "title": "Master React",
+      "description": "Build reusable components and hooks.",
+      "startDate": "2024-01-01",
+      "endDate": null,
+      "url": null,
+      "image": null
+    },
     {
       "id": "diy-nas",
       "type": "side",
+      "father": "mq1",
       "title": "DIY NAS",
       "description": "Built a network attached storage from spare PC parts and open-source software.",
       "startDate": "2024-02-01",
