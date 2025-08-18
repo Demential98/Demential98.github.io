@@ -1,0 +1,12 @@
+{
+  "nodes": [
+    {"id": "intro", "title": "Introduction", "content": "Welcome to the experience graph"},
+    {"id": "skills", "title": "Skills", "content": "Overview of skills"},
+    {"id": "projects", "title": "Projects", "content": "Some notable projects"}
+  ],
+  "links": [
+    {"source": "intro", "target": "skills"},
+    {"source": "intro", "target": "projects"},
+    {"source": "skills", "target": "projects"}
+  ]
+}
