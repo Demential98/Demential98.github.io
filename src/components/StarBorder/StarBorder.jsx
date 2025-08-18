@@ -1,7 +1,7 @@
 import "./StarBorder.css";
 
 const StarBorder = ({
-  as: Component = "button",
+  as = "button",
   className = "",
   color = "white",
   speed = "6s",
@@ -9,9 +9,10 @@ const StarBorder = ({
   children,
   ...rest
 }) => {
+  const Tag = as;
   return (
-    <Component 
-      className={`star-border-container ${className}`} 
+    <Tag
+      className={`star-border-container ${className}`}
       style={{
         padding: `${thickness}px 0`,
         ...rest.style
@@ -33,7 +34,7 @@ const StarBorder = ({
         }}
       ></div>
       <div className="inner-content">{children}</div>
-    </Component>
+    </Tag>
   );
 };
 
