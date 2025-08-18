@@ -1,39 +1,67 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import ForceGraph2D from 'react-force-graph-2d';
 import { useTranslation } from 'react-i18next';
 
 export default function Experience() {
   const { t } = useTranslation();
-  const [quests, setQuests] = useState(null);
+  const [graph, setGraph] = useState(null);
   const [selected, setSelected] = useState(null);
+  const containerRef = useRef(null);
+  const [size, setSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
-    fetch('/quests.json')
+    fetch('/experience.json')
       .then((res) => res.json())
-      .then((data) => setQuests([data.mainQuest, ...data.sideQuests]))
-      .catch(() => setQuests([]));
+      .then((data) => setGraph(data))
+      .catch(() => setGraph({ nodes: [], links: [] }));
   }, []);
 
-  if (!quests) {
+  useEffect(() => {
+    const updateSize = () => {
+      if (containerRef.current) {
+        setSize({
+          width: containerRef.current.clientWidth,
+          height: containerRef.current.clientHeight,
+        });
+      }
+    };
+
+    updateSize();
+    window.addEventListener('resize', updateSize);
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
+
+  if (!graph) {
     return <div className="p-4">{t('experience_loading')}</div>;
   }
 
   return (
-    <div className="p-4 flex flex-col items-center">
-      <h1 className="text-3xl mb-6">{t('experience_title')}</h1>
-      <div className="grid gap-4 w-full max-w-4xl md:grid-cols-2">
-        {quests.map((q) => (
-          <div
-            key={q.id}
-            className={`p-4 border rounded cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800 ${q.type === 'main' ? 'border-yellow-500' : 'border-neutral-500'}`}
-            onClick={() => setSelected(q)}
-          >
-            <h2 className="text-xl font-semibold">{q.title}</h2>
-            <p className="text-sm text-neutral-500">
-              {q.startDate} – {q.endDate || t('experience_present')}
-            </p>
-            <p className="mt-2 overflow-hidden text-ellipsis whitespace-nowrap">{q.description}</p>
-          </div>
-        ))}
+    <div className="flex h-full">
+      <aside className="w-64 p-4 border-r overflow-y-auto">
+        <h1 className="text-3xl mb-6">{t('experience_title')}</h1>
+        <ul className="space-y-2">
+          {graph.nodes.map((n) => (
+            <li key={n.id}>
+              <button
+                className="text-left w-full hover:underline"
+                onClick={() => setSelected(n)}
+              >
+                {n.title}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </aside>
+      <div className="flex-1 relative" ref={containerRef}>
+        {graph.nodes.length > 0 && (
+          <ForceGraph2D
+            graphData={graph}
+            width={size.width}
+            height={size.height}
+            nodeLabel="title"
+            onNodeClick={(node) => setSelected(node)}
+          />
+        )}
       </div>
 
       {selected && (
