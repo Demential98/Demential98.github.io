@@ -1,9 +1,7 @@
 import { Home, Loader2, ExternalLink } from 'lucide-react';
 import Button from '../components/Button';
-import { useTranslation } from 'react-i18next';
 
-export default function Test() {
-  const { t } = useTranslation();
+  export default function Test() {
 
 
 

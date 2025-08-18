@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import './SplitText.css';
 
-const SplitText = ({
-  text,
-  className = '',
-  delay = 0.05,
-  triggerOnScroll = true,
-  textAlign = 'left',
-}) => {
+  const SplitText = ({
+    text,
+    className = '',
+    delay = 0.05,
+    triggerOnScroll = true,
+  }) => {
   const containerRef = useRef(null);
   const [active, setActive] = useState(!triggerOnScroll);
 

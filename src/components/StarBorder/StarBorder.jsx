@@ -1,20 +1,21 @@
-import "./StarBorder.css";
+import './StarBorder.css';
 
 const StarBorder = ({
-  as: Component = "button",
-  className = "",
-  color = "white",
-  speed = "6s",
+  // eslint-disable-next-line no-unused-vars
+  as: ComponentTag = 'button',
+  className = '',
+  color = 'white',
+  speed = '6s',
   thickness = 1,
   children,
   ...rest
 }) => {
   return (
-    <Component 
-      className={`star-border-container ${className}`} 
+    <ComponentTag
+      className={`star-border-container ${className}`}
       style={{
         padding: `${thickness}px 0`,
-        ...rest.style
+        ...rest.style,
       }}
       {...rest}
     >
@@ -33,7 +34,7 @@ const StarBorder = ({
         }}
       ></div>
       <div className="inner-content">{children}</div>
-    </Component>
+    </ComponentTag>
   );
 };
 

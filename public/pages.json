@@ -1,0 +1,12 @@
+{
+  "nodes": [
+    { "id": "home", "title": "Home", "content": "Welcome to the home page." },
+    { "id": "about", "title": "About", "content": "About me section." },
+    { "id": "experience", "title": "Experience", "content": "Work and projects I've completed." }
+  ],
+  "links": [
+    { "source": "home", "target": "about" },
+    { "source": "home", "target": "experience" },
+    { "source": "about", "target": "experience" }
+  ]
+}
