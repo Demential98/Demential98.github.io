@@ -1,0 +1,22 @@
+{
+  "pages": [
+    {
+      "id": "home",
+      "title": "Home",
+      "content": "Landing page overview.",
+      "links": ["about", "experience"]
+    },
+    {
+      "id": "about",
+      "title": "About",
+      "content": "Information about me.",
+      "links": ["experience"]
+    },
+    {
+      "id": "experience",
+      "title": "Experience",
+      "content": "My quest log.",
+      "links": ["home", "about"]
+    }
+  ]
+}

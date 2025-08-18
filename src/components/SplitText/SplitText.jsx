@@ -6,7 +6,6 @@ const SplitText = ({
   className = '',
   delay = 0.05,
   triggerOnScroll = true,
-  textAlign = 'left',
 }) => {
   const containerRef = useRef(null);
   const [active, setActive] = useState(!triggerOnScroll);
