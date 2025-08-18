@@ -8,6 +8,8 @@ export default function Experience() {
   const [categories, setCategories] = useState(null);
   const [active, setActive] = useState(null);
   const [selectedNode, setSelectedNode] = useState(null);
+  let test = false;
+  let msg = '';
 
   useEffect(() => {
     fetch('/quests.json')
@@ -16,7 +18,11 @@ export default function Experience() {
         setCategories(data.categories);
         setActive(data.categories?.[0] || null);
       })
-      .catch(() => setCategories([]));
+      .catch((ex) => {
+        msg = ex;
+        test = true;
+        setCategories([]);
+      });
   }, []);
 
   const { nodes, edges } = useMemo(() => {
@@ -59,8 +65,12 @@ export default function Experience() {
     return { nodes, edges };
   }, [active]);
 
-  if (!categories) {
+  if (!categories && !test) {
     return <div className="p-4">{t('experience_loading')}</div>;
+  }
+  if (!categories && test) {
+    console.log(msg);
+    return <div className="p-4">{t('Some error occurred')}</div>;
   }
 
   return (
