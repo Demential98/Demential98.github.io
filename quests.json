@@ -1,34 +1,66 @@
 {
-  "mainQuest": {
-    "id": "main",
-    "type": "main",
-    "title": "Forge the Ultimate Portfolio",
-    "description": "Document every experiment and project to craft a living compendium of skills.",
-    "startDate": "2023-01-01",
-    "endDate": null,
-    "url": "https://github.com/Demential98",
-    "image": "https://placekitten.com/400/200"
-  },
-  "sideQuests": [
+  "categories": [
     {
-      "id": "diy-nas",
-      "type": "side",
-      "title": "DIY NAS",
-      "description": "Built a network attached storage from spare PC parts and open-source software.",
-      "startDate": "2024-02-01",
-      "endDate": "2024-03-01",
-      "url": "https://github.com/Demential98/diy-nas",
-      "image": "https://placekitten.com/300/200"
+      "id": "main",
+      "title": "Main Quest",
+      "nodes": [
+        {
+          "id": "forge-portfolio",
+          "title": "Forge the Ultimate Portfolio",
+          "description": "Document every experiment and project to craft a living compendium of skills.",
+          "startDate": "2023-01-01",
+          "endDate": null,
+          "url": "https://github.com/Demential98",
+          "image": "https://placekitten.com/400/200",
+          "next": ["diy-nas"]
+        },
+        {
+          "id": "diy-nas",
+          "title": "DIY NAS",
+          "description": "Built a network attached storage from spare PC parts and open-source software.",
+          "startDate": "2024-02-01",
+          "endDate": "2024-03-01",
+          "url": "https://github.com/Demential98/diy-nas",
+          "image": "https://placekitten.com/300/200",
+          "next": ["diy-nas2"]
+        },
+        {
+          "id": "diy-nas2",
+          "title": "DIY NAS2",
+          "description": "Built a network attached storage from spare PC parts and open-source software.",
+          "startDate": "2024-02-01",
+          "endDate": "2024-03-01",
+          "url": "https://github.com/Demential98/diy-nas",
+          "image": "https://placekitten.com/300/200",
+          "next": []
+        },
+        {
+          "id": "diy-nas3",
+          "title": "DIY NAS3",
+          "description": "Built a network attached storage from spare PC parts and open-source software.",
+          "startDate": "2024-02-01",
+          "endDate": "2024-03-01",
+          "url": "https://github.com/Demential98/diy-nas",
+          "image": "https://placekitten.com/300/200",
+          "next": []
+        }
+      ]
     },
     {
-      "id": "retro-pi",
-      "type": "side",
-      "title": "RetroPie Arcade",
-      "description": "Configured a Raspberry Pi to emulate classic consoles and built a mini arcade cabinet.",
-      "startDate": "2023-08-15",
-      "endDate": "2023-09-10",
-      "url": "https://github.com/Demential98/retropie-arcade",
-      "image": null
+      "id": "side",
+      "title": "Side Quests",
+      "nodes": [
+        {
+          "id": "retro-pi",
+          "title": "RetroPie Arcade",
+          "description": "Configured a Raspberry Pi to emulate classic consoles and built a mini arcade cabinet.",
+          "startDate": "2023-08-15",
+          "endDate": "2023-09-10",
+          "url": "https://github.com/Demential98/retropie-arcade",
+          "image": null,
+          "next": []
+        }
+      ]
     }
   ]
 }
