@@ -182,13 +182,13 @@ function App() {
               <div className="relative">
                 <button
                   onClick={() => setLangDropdownOpen((prev) => !prev)}
-                  className="p-2 border rounded hover:bg-gray-200 flex items-center gap-2"
+                  className="p-2 border rounded flex items-center gap-2 transition-colors duration-150 hover:bg-gray-200 dark:hover:bg-gray-700"
                 >
                   <Globe className="w-5 h-5" />
                   {language.toUpperCase()}
                 </button>
                 <div
-                  className={`absolute right-0 top-full mt-2 w-48 bg-white text-black border rounded shadow-md z-10 p-2 transition-all duration-200 transform ${
+                  className={`absolute right-0 top-full mt-2 w-48 bg-[var(--bg-color)] text-[var(--text-color)] border border-slate-200 dark:border-slate-700 rounded shadow-md z-10 p-2 transition-all duration-200 transform ${
                     langDropdownOpen
                       ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto'
                       : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
@@ -200,7 +200,7 @@ function App() {
                       placeholder="Search language..."
                       value={langSearch}
                       onChange={(e) => setLangSearch(e.target.value)}
-                      className="mb-2 w-full p-1 border rounded"
+                      className="mb-2 w-full p-1 border rounded bg-[var(--bg-color)] text-[var(--text-color)] border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-600"
                     />
                   )}
                   {filteredLanguages.map(({ code, label }) => (
@@ -211,7 +211,7 @@ function App() {
                         setLangDropdownOpen(false);
                         setLangSearch('');
                       }}
-                      className="block w-full text-left px-2 py-1 hover:bg-gray-200 rounded"
+                      className="block w-full text-left px-2 py-1 rounded transition-colors duration-150 hover:bg-gray-200 dark:hover:bg-gray-700"
                     >
                       {label}
                     </button>
