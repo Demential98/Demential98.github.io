@@ -2,6 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes rainbow-star-shift {
+  0% {
+    color: #f97316;
+  }
+  16% {
+    color: #facc15;
+  }
+  32% {
+    color: #34d399;
+  }
+  48% {
+    color: #38bdf8;
+  }
+  64% {
+    color: #818cf8;
+  }
+  80% {
+    color: #f472b6;
+  }
+  100% {
+    color: #f97316;
+  }
+}
+
+.rainbow-star {
+  animation: rainbow-star-shift 3s linear infinite;
+  stroke: currentColor;
+  fill: currentColor;
+  color: #f97316;
+}
+
 html, body, #root {
   height: 100%;
 }

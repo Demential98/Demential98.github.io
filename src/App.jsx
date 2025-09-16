@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 import AppRoutes from './AppRoutes';
 
-import { SunMoon, Sun, Moon, Globe } from 'lucide-react';
+import { SunMoon, Sun, Moon, Globe, Star } from 'lucide-react';
 
 import { ThemeContext } from './components/ThemeContext';
 
@@ -60,7 +60,7 @@ function App() {
   }, [themeMode]);
 
   const toggleTheme = () => {
-    console.log(themeMode);
+    // console.log(themeMode);
     setThemeMode((prev) => {
       const newMode = prev === 'light' ? 'dark' : prev === 'dark' ? 'auto' : 'light';
 
@@ -84,6 +84,42 @@ function App() {
   const filteredLanguages = languageOptions.filter((l) =>
     l.label.toLowerCase().includes(langSearch.toLowerCase())
   );
+
+  const getStoredCursorPreference = () => {
+    if (typeof window === 'undefined') return null;
+    const stored = localStorage.getItem('splash-cursor-enabled');
+    if (stored === null) return null;
+    return stored === 'true';
+  };
+
+  const [cursorEnabled, setCursorEnabled] = useState(() => {
+    const stored = getStoredCursorPreference();
+    return stored !== null ? stored : true;
+  });
+
+  const [cursorSupported, setCursorSupported] = useState(true);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const canvas = document.createElement('canvas');
+    const gl =
+      canvas.getContext('webgl2') ||
+      canvas.getContext('webgl') ||
+      canvas.getContext('experimental-webgl');
+    if (!gl) {
+      setCursorSupported(false);
+      setCursorEnabled(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    localStorage.setItem('splash-cursor-enabled', cursorEnabled ? 'true' : 'false');
+  }, [cursorEnabled]);
+
+  const toggleCursor = () => {
+    setCursorEnabled((prev) => !prev);
+  };
 
   return (
     <ThemeContext.Provider value={{ themeMode, theme, setThemeMode }}>
@@ -196,6 +232,33 @@ function App() {
                   />
                 )}
               </button>
+
+              <button
+                type="button"
+                onClick={toggleCursor}
+                disabled={!cursorSupported}
+                className={`p-2 border rounded transition-colors duration-150 ${
+                  cursorSupported
+                    ? 'hover:bg-gray-200 dark:hover:bg-gray-700'
+                    : 'opacity-60 cursor-not-allowed'
+                }`}
+                title={
+                  cursorSupported
+                    ? cursorEnabled
+                      ? 'Disable interactive cursor'
+                      : 'Enable interactive cursor'
+                    : 'Interactive cursor not supported on this device'
+                }
+                aria-pressed={cursorEnabled}
+              >
+                <Star
+                  className={`w-5 h-5 ${
+                    cursorSupported && cursorEnabled
+                      ? 'rainbow-star'
+                      : 'text-gray-400 dark:text-gray-600'
+                  }`}
+                />
+              </button>
             </div>
           </nav>
 
@@ -204,7 +267,7 @@ function App() {
           </main>
         </div>
       </BrowserRouter>
-      <SplashCursor />
+      {cursorEnabled && <SplashCursor />}
     </ThemeContext.Provider>
   );
 }
