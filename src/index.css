@@ -41,15 +41,19 @@ html, body, #root {
   --bg-color: white;
   --text-color: black;
 
-  --button-bg: #42A5F5; /* blue-400 */
-  --button-bg-hover: #2563eb; /* blue-600 */
+  --button-bg: #e5e7eb; /* gray-200 */
+  --button-bg-hover: #d1d5db; /* gray-300 */
+  --button-bg-glow: rgba(148, 163, 184, 0.35);
+  --interactive-text: var(--text-color);
 }
 [data-theme='dark'] {
   --bg-color: #111;
   --text-color: white;
 
-  --button-bg: #2563eb; /* blue-600 */
-  --button-bg-hover: #1d4ed8; /* blue-700 */
+  --button-bg: #4b5563; /* gray-600 */
+  --button-bg-hover: #374151; /* gray-700 */
+  --button-bg-glow: rgba(71, 85, 105, 0.45);
+  --interactive-text: var(--text-color);
 }
 
 /*:root {
