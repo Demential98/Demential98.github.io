@@ -10,6 +10,7 @@ import {
   Info as InfoIcon,
   Construction,
 } from 'lucide-react';
+import './Navbar.css';
 
 function Navbar({
   links = [],
@@ -154,8 +155,8 @@ function Navbar({
 
   return (
     <nav
-      className={`sticky top-0 z-50 flex justify-between items-center px-4 py-3 border-b transition-shadow bg-[var(--bg-color)] ${
-        scrolled ? 'shadow-md' : ''
+      className={`navbar-shell sticky top-0 z-50 flex justify-between items-center px-4 py-3 transition-shadow bg-[var(--bg-color)] ${
+        scrolled ? 'shadow-md is-scrolled' : ''
       }`}
     >
       <div className="flex items-center gap-2.5 justify-center">
@@ -255,7 +256,9 @@ function Navbar({
           >
             <Star
               className={`w-5 h-5 ${
-                cursorSupported && cursorEnabled ? 'rainbow-star' : 'text-gray-400 dark:text-gray-600'
+                cursorSupported && cursorEnabled
+                  ? 'rainbow-star'
+                  : 'text-gray-400 dark:text-gray-600'
               }`}
             />
           </button>

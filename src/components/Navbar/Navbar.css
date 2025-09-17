@@ -1,0 +1,32 @@
+.navbar-shell {
+  position: relative;
+}
+
+.navbar-shell::before {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0;
+  height: 1.5px;
+  border-radius: 9999px;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--navbar-divider-color),
+    transparent
+  );
+  opacity: 0.85;
+  transition: opacity 240ms ease;
+}
+
+.navbar-shell.is-scrolled::before {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar-shell::before {
+    transition-duration: 0ms;
+  }
+}
