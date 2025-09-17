@@ -14,7 +14,7 @@ export default function Home() {
           delay={0.1}
           splitType="chars"
           triggerOnScroll={true}
-          className="text-3xl text-center whitespace-pre-line z-10"
+          className="text-3xl text-center whitespace-pre-line z-10 select-none"
         />
       </h1>
 
