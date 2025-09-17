@@ -32,7 +32,7 @@ function Navbar({
         scrolled ? 'shadow-md' : ''
       }`}
     >
-      <div className="flex gap-4 justify-center">
+      <div className="flex gap-2.5 justify-center">
         {links.map(({ to, label }) => (
           <StarBorder
             key={to}

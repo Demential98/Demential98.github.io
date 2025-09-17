@@ -45,6 +45,17 @@ html, body, #root {
   --button-bg-hover: #d1d5db; /* gray-300 */
   --button-bg-glow: rgba(148, 163, 184, 0.35);
   --interactive-text: var(--text-color);
+  --button-outline: rgba(148, 163, 184, 0.35);
+  --button-surface-top: #f9fafb;
+  --button-surface-bottom: #d2d6dc;
+  --button-hover-top: #f3f4f6;
+  --button-hover-bottom: #c5cbd6;
+  --button-shadow: rgba(15, 23, 42, 0.12);
+  --button-shadow-hover: rgba(15, 23, 42, 0.18);
+  --button-shadow-active: rgba(15, 23, 42, 0.14);
+  --button-shadow-inner: rgba(15, 23, 42, 0.04);
+  --button-shadow-inner-hover: rgba(15, 23, 42, 0.08);
+  --button-highlight: rgba(255, 255, 255, 0.85);
 }
 [data-theme='dark'] {
   --bg-color: #111;
@@ -54,6 +65,17 @@ html, body, #root {
   --button-bg-hover: #374151; /* gray-700 */
   --button-bg-glow: rgba(71, 85, 105, 0.45);
   --interactive-text: var(--text-color);
+  --button-outline: rgba(148, 163, 184, 0.4);
+  --button-surface-top: #1f2937;
+  --button-surface-bottom: #111827;
+  --button-hover-top: #273347;
+  --button-hover-bottom: #141b29;
+  --button-shadow: rgba(0, 0, 0, 0.5);
+  --button-shadow-hover: rgba(15, 23, 42, 0.55);
+  --button-shadow-active: rgba(0, 0, 0, 0.42);
+  --button-shadow-inner: rgba(255, 255, 255, 0.08);
+  --button-shadow-inner-hover: rgba(255, 255, 255, 0.12);
+  --button-highlight: rgba(255, 255, 255, 0.25);
 }
 
 /*:root {
