@@ -96,36 +96,46 @@ export default function Experience() {
       </div>
 
       {selectedNode && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white dark:bg-neutral-900 p-6 rounded max-w-lg w-full overflow-y-auto max-h-full">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+          <div className="relative w-full max-w-2xl overflow-hidden rounded-2xl border border-neutral-200/70 bg-[var(--bg-color)] text-[var(--text-color)] shadow-2xl transition dark:border-neutral-800">
             <button
-              className="mb-4 text-sm text-right w-full hover:underline"
+              type="button"
+              className="absolute right-4 top-4 inline-flex items-center gap-2 rounded-full border border-transparent bg-[var(--button-bg)] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[var(--interactive-text)] transition hover:bg-[var(--button-bg-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gray-400 dark:focus-visible:ring-gray-600"
               onClick={() => setSelectedNode(null)}
             >
               {t('experience_close')}
             </button>
-            <h2 className="text-2xl font-bold mb-2">{selectedNode.title}</h2>
-            <p className="text-sm text-neutral-500 mb-2">
-              {selectedNode.startDate} – {selectedNode.endDate || t('experience_present')}
-            </p>
-            {selectedNode.image && (
-              <img
-                src={selectedNode.image}
-                alt={selectedNode.title}
-                className="mb-4 rounded w-full object-cover"
-              />
-            )}
-            <p className="mb-4 whitespace-pre-line">{selectedNode.description}</p>
-            {selectedNode.url && (
-              <a
-                className="text-blue-500 hover:underline"
-                href={selectedNode.url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {t('experience_visit')}
-              </a>
-            )}
+            <div className="space-y-4 p-6 sm:p-8">
+              <div>
+                <h2 className="text-2xl font-bold text-[var(--text-heading)]">
+                  {selectedNode.title}
+                </h2>
+                <p className="text-sm text-[var(--text-muted)]">
+                  {selectedNode.startDate} – {selectedNode.endDate || t('experience_present')}
+                </p>
+              </div>
+              {selectedNode.image && (
+                <img
+                  src={selectedNode.image}
+                  alt={selectedNode.title}
+                  className="w-full rounded-xl border border-neutral-200/70 object-cover shadow-sm dark:border-neutral-800"
+                />
+              )}
+              <p className="whitespace-pre-line text-base leading-relaxed text-[var(--text-body)]">
+                {selectedNode.description}
+              </p>
+              {selectedNode.url && (
+                <a
+                  className="inline-flex items-center gap-2 text-sm font-medium text-blue-600 transition hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
+                  href={selectedNode.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {t('experience_visit')}
+                  <span aria-hidden>{'->'}</span>
+                </a>
+              )}
+            </div>
           </div>
         </div>
       )}

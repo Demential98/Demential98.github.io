@@ -1,42 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  height: 100%;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+@keyframes rainbow-star-shift {
+  0% {
+    color: #f97316;
   }
-  to {
-    transform: rotate(360deg);
+  16% {
+    color: #facc15;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  32% {
+    color: #34d399;
+  }
+  48% {
+    color: #38bdf8;
+  }
+  64% {
+    color: #818cf8;
+  }
+  80% {
+    color: #f472b6;
+  }
+  100% {
+    color: #f97316;
   }
 }
 
-.card {
-  padding: 2em;
+.rainbow-star {
+  animation: rainbow-star-shift 3s linear infinite;
+  stroke: currentColor;
+  fill: currentColor;
+  color: #f97316;
 }
 
-.read-the-docs {
-  color: #888;
+:root {
+  --bg-color: white;
+  --text-color: black;
+  --button-bg: #e5e7eb;
+  --button-bg-hover: #d1d5db;
+  --button-bg-glow: rgba(148, 163, 184, 0.35);
+  --interactive-text: var(--text-color);
+  --button-outline: rgba(148, 163, 184, 0.35);
+  --button-surface-top: #f9fafb;
+  --button-surface-bottom: #d2d6dc;
+  --button-hover-top: #f3f4f6;
+  --button-hover-bottom: #c5cbd6;
+  --button-shadow: rgba(15, 23, 42, 0.12);
+  --button-shadow-hover: rgba(15, 23, 42, 0.18);
+  --button-shadow-active: rgba(15, 23, 42, 0.14);
+  --button-shadow-inner: rgba(15, 23, 42, 0.04);
+  --button-shadow-inner-hover: rgba(15, 23, 42, 0.08);
+  --button-highlight: rgba(255, 255, 255, 0.85);
+  --navbar-divider-color: rgba(15, 23, 42, 0.45);
+  --text-heading: #111827;
+  --text-body: #1f2937;
+  --text-muted: #4b5563;
+}
+
+[data-theme='dark'] {
+  --bg-color: #111;
+  --text-color: white;
+  --button-bg: #4b5563;
+  --button-bg-hover: #374151;
+  --button-bg-glow: rgba(71, 85, 105, 0.45);
+  --interactive-text: var(--text-color);
+  --button-outline: rgba(148, 163, 184, 0.4);
+  --button-surface-top: #1f2937;
+  --button-surface-bottom: #111827;
+  --button-hover-top: #273347;
+  --button-hover-bottom: #141b29;
+  --button-shadow: rgba(0, 0, 0, 0.5);
+  --button-shadow-hover: rgba(15, 23, 42, 0.55);
+  --button-shadow-active: rgba(0, 0, 0, 0.42);
+  --button-shadow-inner: rgba(255, 255, 255, 0.08);
+  --button-shadow-inner-hover: rgba(255, 255, 255, 0.12);
+  --button-highlight: rgba(255, 255, 255, 0.25);
+  --navbar-divider-color: rgba(255, 255, 255, 0.45);
+  --text-heading: #f8fafc;
+  --text-body: #e2e8f0;
+  --text-muted: #94a3b8;
 }
